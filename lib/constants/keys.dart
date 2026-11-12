@@ -1,3 +1,3 @@
 class AppKeys {
-  static const tokenKey = "userToken";
+  static const tokenKey = 'userToken';
 }

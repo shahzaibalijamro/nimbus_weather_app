@@ -38,6 +38,8 @@ dependencies:
   http: ^1.6.0
   shared_preferences: ^2.5.5
   get: ^4.7.3
+  phosphoricons_flutter: ^1.1.1
+  skeletonizer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

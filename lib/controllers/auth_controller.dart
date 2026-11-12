@@ -19,31 +19,27 @@ class AuthController extends GetxController {
   void login({required String email, required String password}) async {
     isLoading.value = true;
     if (email.trim().isEmpty) {
-      errorMsg.value = "Email is required";
+      errorMsg.value = 'Email is required';
       return;
     }
     if (password.trim().isEmpty) {
-      errorMsg.value = "Password is required";
+      errorMsg.value = 'Password is required';
       return;
     }
     errorMsg.value = null;
-    Map<String, dynamic> body = {"email": email, "password": password};
+    Map<String, dynamic> body = {'email': email, 'password': password};
     final response = await apiController.post(
       url: ApiEndpoints.login,
       body: body,
       isLogin: true,
     );
-    int statusCode = response.$1;
-    if (statusCode == 201 || statusCode == 200) {
-      final apiResponse = response.$2;
+    int? statusCode = response.statusCode;
+    if (statusCode != null && (statusCode == 201 || statusCode == 200)) {
+      final String apiResponse = response.body!;
       User user = userFromJson(apiResponse);
       Get.offAllNamed(AppRoutes.main, arguments: {'user': user});
     } else {
-      print("this is running");
-      print(response.$2);
-      LoginError loginError = loginErrorFromJson(response.$2);
-      errorMsg.value = loginError.message;
-      print(loginError.message);
+      errorMsg.value = response.message;
     }
     isLoading.value = false;
   }
@@ -55,23 +51,23 @@ class AuthController extends GetxController {
   }) async {
     isLoading.value = true;
     if (fullName.trim().isEmpty) {
-      errorMsg.value = "Name is required";
+      errorMsg.value = 'Name is required';
       return;
     }
     if (email.trim().isEmpty) {
-      errorMsg.value = "Email is required";
+      errorMsg.value = 'Email is required';
       return;
     }
     if (password.trim().isEmpty) {
-      errorMsg.value = "Password is required";
+      errorMsg.value = 'Password is required';
       return;
     }
     errorMsg.value = null;
 
     Map<String, dynamic> body = {
-      "name": fullName,
-      "email": email,
-      "password": password,
+      'name': fullName,
+      'email': email,
+      'password': password,
     };
 
     final response = await apiController.post(
@@ -79,12 +75,35 @@ class AuthController extends GetxController {
       body: body,
     );
 
-    int statusCode = response.$1;
+    int? statusCode = response.statusCode;
 
-    if (statusCode == 201) {
+    if (statusCode != null && statusCode == 201) {
       Get.offAllNamed(AppRoutes.login);
     } else {
-      errorMsg.value = response.$2;
+      errorMsg.value = response.message;
+    }
+    isLoading.value = false;
+  }
+
+  Future<void> checkForUser() async {
+    isLoading.value = true;
+    errorMsg.value = null;
+    final response = await apiController.get(
+      url: ApiEndpoints.me,
+      isSecured: true,
+    );
+    int? statusCode = response.statusCode;
+    if (statusCode == 201 || statusCode == 200) {
+      final apiResponse = response.body!;
+      User user = userFromJson(apiResponse);
+      Get.offAllNamed(AppRoutes.main, arguments: {'user': user});
+    } else {
+      if (statusCode == 707) {
+        errorMsg.value = 'NO INTERNET! PLEASE CHECK YOUR INTERNET CONNECTION';
+        isLoading.value = false;
+        return;
+      }
+      Get.offAllNamed(AppRoutes.login);
     }
     isLoading.value = false;
   }

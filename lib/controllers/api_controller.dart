@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/keys.dart';
+import 'package:untitled/models/response_model.dart';
 
 class ApiController {
   Future<void> _saveToken(String token) async {
@@ -13,7 +14,7 @@ class ApiController {
 
   Future<String> _retrieveToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(AppKeys.tokenKey) ?? "";
+    return prefs.getString(AppKeys.tokenKey) ?? '';
   }
 
   Future<bool> checkIfOnline() async {
@@ -22,12 +23,12 @@ class ApiController {
       print(result);
       return true;
     } catch (e) {
-      print("INTERNET ERROR, $e");
+      print('INTERNET ERROR, $e');
       return false;
     }
   }
 
-  Future<(int, String)> post({
+  Future<Response> post({
     required String url,
     required Map<String, dynamic> body,
     bool isSecured = false,
@@ -58,22 +59,19 @@ class ApiController {
 
       // save token if login
       if (isLogin && (statusCode == 200 || statusCode == 201)) {
-        print("TOKEN CHALRAHA");
-        String token = jsonDecode(response)["token"];
+        print('TOKEN CHALRAHA');
+        String token = jsonDecode(response)['token'];
         await _saveToken(token);
       }
-      return (statusCode, response);
+      return Response(statusCode: statusCode, body: response);
     } catch (e) {
       print(e);
       // if(status)
-      return (600, "Something went wrong!");
+      return Response(message: 'Something went wrong!');
     }
   }
 
-  Future<(int, String)> get({
-    required String url,
-    bool isSecured = false,
-  }) async {
+  Future<Response> get({required String url, bool isSecured = false}) async {
     // bool isOnline = await checkIfOnline();
     // if(!isOnline) {
     //   return (707, "No internet!");
@@ -90,10 +88,10 @@ class ApiController {
       final request = await http.get(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;
-      return (statusCode, response);
+      return Response(statusCode: statusCode, body: response);
     } catch (e) {
       print(e);
-      return (600, "Something went wrong!");
+      return Response(message: 'Something went wrong!');
     }
   }
 }
