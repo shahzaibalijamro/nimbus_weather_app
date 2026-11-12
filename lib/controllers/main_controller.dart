@@ -15,9 +15,9 @@ class MainController extends GetxController {
   ];
 
   List<Map<String, dynamic>> navItems = [
-    {'icon': Icon(PhosphorIconsBold.compass), 'label': 'Explore'},
-    {'icon': Icon(PhosphorIconsBold.heart), 'label': 'Favorites'},
-    {'icon': Icon(PhosphorIconsBold.user), 'label': 'Profile'},
+    {'icon': const Icon(PhosphorIconsBold.compass), 'label': 'Explore'},
+    {'icon': const Icon(PhosphorIconsBold.heart), 'label': 'Favorites'},
+    {'icon': const Icon(PhosphorIconsBold.user), 'label': 'Profile'},
   ];
 
   void switchScreens(int index) {

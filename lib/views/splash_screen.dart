@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled/constants/api.dart';
-import 'package:untitled/constants/routes.dart';
-import 'package:untitled/controllers/api_controller.dart';
+import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/auth_controller.dart';
-import 'package:untitled/views/main_screen.dart';
-import 'package:untitled/views/login.dart';
-
-import '../models/user_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }
@@ -35,11 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0B1B3A),
+      backgroundColor: const Color(0xFF0B1B3A),
       body: Center(
         child: Column(
           children: [
-            Spacer(),
+            const Spacer(),
             Text(
               'Nimbus',
               style: GoogleFonts.sora(
@@ -48,58 +41,70 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Weather & city guide',
               style: GoogleFonts.dmSans(
                 fontSize: 16,
-                color: Color(0xFF9FB4DD),
+                color: const Color(0xFF9FB4DD),
                 fontWeight: FontWeight.w400,
               ),
             ),
-            SizedBox(height: 24),
-            Text(
-              'Checking your session…',
-              style: GoogleFonts.dmMono(
-                fontSize: 13,
-                color: Color(0xFF9FB4DD),
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Obx(() {
-              if (controller.isLoading.value)
-                return SizedBox(
-                  width: 44,
-                  height: 44,
-                  child: CircularProgressIndicator(color: Colors.white),
-                );
-              return SizedBox.shrink();
-            }),
-            Obx(() {
-              if (controller.errorMsg.value != null) {
-                return InkWell(
-                  onTap: controller.checkForUser,
-                  child: Container(
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Text(
-                      'RETRY',
-                      style: GoogleFonts.dmSans(
-                        fontSize: 16,
-                        color: Color(0xFF9FB4DD),
-                        fontWeight: FontWeight.w400,
-                      ),
+              bool isLoading = controller.isLoading.value;
+              bool isOffline =
+                  controller.errorMsg.value != null &&
+                  controller.errorMsg.value == 'No Internet!';
+              return Column(
+                children: [
+                  Text(
+                    isLoading || !isOffline
+                        ? 'Checking your session…'
+                        : isOffline
+                        ? 'No Internet!'
+                        : 'Welcome!',
+                    style: GoogleFonts.dmMono(
+                      fontSize: 13,
+                      color: const Color(0xFF9FB4DD),
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                );
-              }
-              return SizedBox.shrink();
+                  const SizedBox(height: 24),
+                  isLoading
+                      ? const SizedBox(
+                          width: 44,
+                          height: 44,
+                          child: CircularProgressIndicator(color: Colors.white),
+                        )
+                      : const SizedBox.shrink(),
+                  isOffline
+                      ? InkWell(
+                          onTap: controller.checkForUser,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: Text(
+                              'RETRY',
+                              style: GoogleFonts.dmSans(
+                                fontSize: 16,
+                                color: AppColors.primaryText,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
+                ],
+              );
             }),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

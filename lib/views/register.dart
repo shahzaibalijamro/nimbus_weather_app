@@ -28,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsetsGeometry.only(
+        padding: const EdgeInsetsGeometry.only(
           left: 24,
           right: 24,
           top: 56,
@@ -38,20 +38,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Color(0xFF2F6BFF),
+                color: const Color(0xFF2F6BFF),
                 borderRadius: BorderRadius.circular(18),
               ),
-              child: Image.asset('assets/icons/sun.png', height: 30, width: 30),
+              child: Image.asset(
+                'assets/icons/white-sun.png',
+                height: 30,
+                width: 30,
+              ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             Text(
               'Create your account',
               style: GoogleFonts.sora(
                 fontWeight: FontWeight.w800,
                 fontSize: 28,
-                color: Color(0xFF0B1B3A),
+                color: const Color(0xFF0B1B3A),
               ),
             ),
             Text(
@@ -59,21 +63,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
               ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             Text(
               'Full name',
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
                 height: 2,
               ),
             ),
             TextField(
-              cursorColor: Color(0xFF5A6B8C),
+              cursorColor: const Color(0xFF5A6B8C),
               cursorHeight: 16,
               controller: fullNameController,
               decoration: InputDecoration(
@@ -84,37 +88,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide: BorderSide(
-                    color: Color(0xFFDCE5F7).withValues(alpha: 0.5),
+                    color: const Color(0xFFDCE5F7).withValues(alpha: 0.5),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
                 ),
 
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 hint: Text(
                   'Shahzaib Ali',
                   style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
-                    color: Color(0xFF5A6B8C),
+                    color: const Color(0xFF5A6B8C),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Email',
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
                 height: 2,
               ),
             ),
             TextField(
-              cursorColor: Color(0xFF5A6B8C),
+              cursorColor: const Color(0xFF5A6B8C),
               cursorHeight: 16,
               controller: emailController,
               decoration: InputDecoration(
@@ -125,38 +129,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide: BorderSide(
-                    color: Color(0xFFDCE5F7).withValues(alpha: 0.5),
+                    color: const Color(0xFFDCE5F7).withValues(alpha: 0.5),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
                 ),
 
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 hint: Text(
                   'shahzaib@example.com',
                   style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
-                    color: Color(0xFF5A6B8C),
+                    color: const Color(0xFF5A6B8C),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Password',
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
                 height: 2,
               ),
             ),
             Obx(
               () => TextField(
-                cursorColor: Color(0xFF5A6B8C),
+                cursorColor: const Color(0xFF5A6B8C),
                 cursorHeight: 16,
                 controller: passwordController,
                 obscureText: authController.isObscured.value,
@@ -180,44 +184,46 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: BorderSide(
-                      color: Color(0xFFDCE5F7).withValues(alpha: 0.5),
+                      color: const Color(0xFFDCE5F7).withValues(alpha: 0.5),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide(color: Color(0xFFDCE5F7)),
+                    borderSide: const BorderSide(
+                      color: const Color(0xFFDCE5F7),
+                    ),
                   ),
 
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   hint: Text(
                     'Enter your password',
                     style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
-                      color: Color(0xFF5A6B8C),
+                      color: const Color(0xFF5A6B8C),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(14),
+              padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Color(0xFFFFF3CC),
+                color: const Color(0xFFFFF3CC),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
                 'Demo account: demo@nimbus.app / demo1234',
                 style: GoogleFonts.dmMono(
-                  color: Color(0xFFB54708),
+                  color: const Color(0xFFB54708),
                   fontSize: 14,
-                  fontWeight: FontWeight(400),
+                  fontWeight: const FontWeight(400),
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             InkWell(
               onTap: () => authController.signUp(
                 fullName: fullNameController.text,
@@ -226,9 +232,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(14),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Color(0xFF2F6BFF),
+                  color: const Color(0xFF2F6BFF),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
@@ -238,7 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (authController.isLoading.value) ...[
-                          CircularProgressIndicator(color: Colors.white),
+                          const CircularProgressIndicator(color: Colors.white),
                         ],
                         Text(
                           authController.isLoading.value
@@ -247,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: GoogleFonts.dmSans(
                             color: Colors.white,
                             fontSize: 16,
-                            fontWeight: FontWeight(600),
+                            fontWeight: const FontWeight(600),
                           ),
                         ),
                       ],
@@ -256,7 +262,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
@@ -264,9 +270,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                   'Already have an account?',
                   style: GoogleFonts.dmSans(
-                    color: Color(0xFF5A6B8C),
+                    color: const Color(0xFF5A6B8C),
                     fontSize: 15,
-                    fontWeight: FontWeight(400),
+                    fontWeight: const FontWeight(400),
                   ),
                 ),
                 InkWell(
@@ -276,9 +282,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Text(
                     'Log in',
                     style: GoogleFonts.dmSans(
-                      color: Color(0xFF2F6BFF),
+                      color: const Color(0xFF2F6BFF),
                       fontSize: 15,
-                      fontWeight: FontWeight(700),
+                      fontWeight: const FontWeight(700),
                     ),
                   ),
                 ),

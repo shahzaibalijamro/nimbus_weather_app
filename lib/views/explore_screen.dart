@@ -16,14 +16,33 @@ class ExploreScreen extends StatefulWidget {
 
 class _ExploreScreenState extends State<ExploreScreen> {
   final ExploreController controller = Get.put(ExploreController());
+  final ScrollController scrollController = ScrollController();
+  final scrollThreshold = 50;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    scrollController.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (!scrollController.hasClients) return;
+      if (scrollController.position.extentAfter > scrollThreshold) return;
+      controller.fetchCities();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       color: AppColors.blue,
       backgroundColor: AppColors.backgroundColor,
       onRefresh: () async {
-        await controller.fetchRegions();
-        await controller.fetchCities();
+        controller.fetchRegions();
+        controller.fetchCities(refresh: true);
       },
       child: SkeletonizerConfig(
         data: SkeletonizerConfigData(
@@ -93,18 +112,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 fillColor: AppColors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(color: AppColors.borderGrey, width: 1),
+                  borderSide: const BorderSide(
+                    color: AppColors.borderGrey,
+                    width: 1,
+                  ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: AppColors.borderGrey,
                     width: 1.5,
                   ),
                 ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Icon(PhosphorIconsBold.magnifyingGlass, size: 20),
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: const Icon(
+                    PhosphorIconsBold.magnifyingGlass,
+                    size: 20,
+                  ),
                 ),
                 hint: Text(
                   'Search cities or countries…',
@@ -119,32 +144,39 @@ class _ExploreScreenState extends State<ExploreScreen> {
             SizedBox(
               height: 37,
               child: Obx(() {
+                final isOffline = controller.isOffline.value;
                 final isLoading = controller.isLoadingRegions.value;
                 final regions = controller.regions;
-
-                final regionNames = isLoading
+                final selectedRegion = controller.selectedRegion.value.name;
+                final regionNames = isOffline
+                    ? List.filled(7, '————')
+                    : isLoading
                     ? List.filled(7, 'Loading')
                     : regions.map((region) => region.name).toList();
                 return ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  separatorBuilder: (context, index) => SizedBox(width: 8),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 8),
                   itemCount: regionNames.length,
                   itemBuilder: (context, index) {
                     bool isSelected =
-                        !isLoading &&
-                        regions[index].name ==
-                            controller.selectedRegion.value.name;
+                        !isLoading && regions[index].name == selectedRegion;
                     return InkWell(
+                      hoverColor: Colors.transparent,
+                      onTap: () {
+                        if (isOffline || isLoading) return;
+                        controller.switchRegion(regions[index].name);
+                      },
                       child: Skeletonizer(
                         enabled: isLoading,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
                           decoration: BoxDecoration(
                             color: isSelected
                                 ? AppColors.blue
                                 : AppColors.white,
                             borderRadius: BorderRadius.circular(50),
-                            border: isSelected
+                            border: !isSelected
                                 ? BoxBorder.all(
                                     color: AppColors.borderGrey,
                                     width: 1,
@@ -153,13 +185,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                           child: Center(
                             child: Text(
-                              isLoading
-                                  ? 'Loading'
-                                  : controller.regions[index].name,
+                              isLoading ? 'Loading' : regionNames[index],
                               style: GoogleFonts.dmSans(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
-                                color: isSelected
+                                color: !isSelected
                                     ? AppColors.secondaryText
                                     : AppColors.white,
                               ),
@@ -184,11 +214,17 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ),
                 ),
                 Obx(() {
-                  bool isLoading = controller.isLoadingCities.value;
+                  final cities = controller.cities;
+                  bool isLoading =
+                      controller.isLoadingCities.value && cities.isEmpty;
+                  bool isOffline = controller.isOffline.value;
+
                   return Skeletonizer(
                     enabled: isLoading,
                     child: Text(
-                      !isLoading
+                      isOffline
+                          ? '—'
+                          : !isLoading
                           ? '${controller.numberOfResults.value} results'
                           : 'loading',
                       style: GoogleFonts.dmSans(
@@ -203,7 +239,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
             ),
             Expanded(
               child: Obx(() {
-                bool isLoading = controller.isLoadingCities.value;
+                bool isLoading =
+                    controller.isLoadingCities.value &&
+                    controller.cities.isEmpty;
                 bool isError = controller.errorMsg.value != null;
                 bool isOffline = controller.isOffline.value;
                 if (isError || isOffline) {
@@ -249,7 +287,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 10,
                             vertical: 6,
                           ),
@@ -267,9 +305,12 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           ),
                         ),
                         InkWell(
-                          onTap: controller.fetchCities,
+                          onTap: () {
+                            controller.fetchCities(refresh: true);
+                            controller.fetchRegions();
+                          },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 25,
                               vertical: 10,
                             ),
@@ -282,7 +323,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               mainAxisSize: MainAxisSize.min,
                               spacing: 8,
                               children: [
-                                Icon(
+                                const Icon(
                                   PhosphorIconsBold.arrowClockwise,
                                   color: AppColors.white,
                                   size: 18,
@@ -304,16 +345,26 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   );
                 }
                 final cities = controller.cities;
-                int itemCount = isLoading ? 5 : cities.length + 1;
+                final isLastBatch = controller.isLast.value;
+                int itemCount = isLoading
+                    ? 5
+                    : cities.length + (!isLastBatch ? 1 : 0);
                 return ListView.separated(
+                  controller: scrollController,
                   itemBuilder: (context, index) {
+                    bool showLastShimmer =
+                        !isLastBatch && index == itemCount - 1;
+                    if (showLastShimmer) {
+                      return const WeatherTile(isLoading: true, city: null);
+                    }
                     return WeatherTile(
                       isLoading: isLoading,
-                      city: cities[index],
+                      city: isLoading ? null : cities[index],
                     );
                   },
                   scrollDirection: Axis.vertical,
-                  separatorBuilder: (context, index) => SizedBox(height: 16),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 16),
                   itemCount: itemCount,
                 );
               }),

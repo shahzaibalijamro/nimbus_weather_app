@@ -98,8 +98,8 @@ class AuthController extends GetxController {
       User user = userFromJson(apiResponse);
       Get.offAllNamed(AppRoutes.main, arguments: {'user': user});
     } else {
-      if (statusCode == 707) {
-        errorMsg.value = 'NO INTERNET! PLEASE CHECK YOUR INTERNET CONNECTION';
+      if (statusCode == 700) {
+        errorMsg.value = 'No Internet!';
         isLoading.value = false;
         return;
       }

@@ -26,7 +26,10 @@ class _MainScreenState extends State<MainScreen> {
       body: Obx(
         () => SafeArea(
           child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(horizontal: 24, vertical: 30),
+            padding: const EdgeInsetsGeometry.symmetric(
+              horizontal: 24,
+              vertical: 30,
+            ),
             child: controller.screens[controller.screenIndex.value],
           ),
         ),

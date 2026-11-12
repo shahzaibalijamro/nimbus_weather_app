@@ -16,6 +16,8 @@ class ExploreController extends GetxController {
   RxBool isOffline = false.obs;
   RxnString errorMsg = RxnString();
   RxnInt numberOfResults = RxnInt();
+  RxInt page = 1.obs;
+  RxBool isLast = false.obs;
 
   @override
   void onInit() {
@@ -26,6 +28,8 @@ class ExploreController extends GetxController {
 
   Future<void> fetchRegions() async {
     isLoadingRegions.value = true;
+    isOffline.value = false;
+
     final response = await apiController.get(url: ApiEndpoints.regions);
     int? statusCode = response.statusCode;
     String? body = response.body;
@@ -35,24 +39,53 @@ class ExploreController extends GetxController {
         Region(name: 'All', count: 0),
         ...Regions.fromJson(jsonDecode(body!)).data,
       ];
+      errorMsg.value = null;
     } else {
       errorMsg.value = message;
+      isOffline.value = statusCode != null && statusCode == 700;
     }
     isLoadingRegions.value = false;
   }
 
-  Future<void> fetchCities() async {
+  void switchRegion(String name) {
+    selectedRegion.value = regions.firstWhere(
+      (element) => element.name == name,
+    );
+    fetchCities(refresh: true);
+  }
+
+  Future<void> fetchCities({bool refresh = false}) async {
+    isOffline.value = false;
+    if (refresh) {
+      page.value = 1;
+      cities.clear();
+      isLast.value = false;
+    }
+    if (isLoadingCities.value || isLast.value) return;
     isLoadingCities.value = true;
-    final response = await apiController.get(url: ApiEndpoints.cities);
+    final response = await apiController.get(
+      url: ApiEndpoints.cities,
+      params: {
+        'page': page.value.toString(),
+        'limit': 8.toString(),
+        'region': selectedRegion.value.name == 'All'
+            ? ''
+            : selectedRegion.value.name,
+      },
+    );
     int? statusCode = response.statusCode;
     String? body = response.body;
     String? message = response.message;
     if (statusCode != null && (statusCode == 200 || statusCode == 201)) {
       final data = Cities.fromJson(jsonDecode(body!));
-      cities.value = data.data;
+      cities.value = [...cities, ...data.data];
       numberOfResults.value = data.meta.total;
+      page++;
+      isLast.value = !data.meta.hasNext;
+      errorMsg.value = null;
     } else {
       errorMsg.value = message;
+      isOffline.value = statusCode != null && statusCode == 700;
     }
     isLoadingCities.value = false;
   }

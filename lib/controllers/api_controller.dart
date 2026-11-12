@@ -19,8 +19,7 @@ class ApiController {
 
   Future<bool> checkIfOnline() async {
     try {
-      final result = await InternetAddress.lookup('google.com');
-      print(result);
+      await InternetAddress.lookup('google.com');
       return true;
     } catch (e) {
       print('INTERNET ERROR, $e');
@@ -34,10 +33,9 @@ class ApiController {
     bool isSecured = false,
     bool isLogin = false,
   }) async {
-    // bool isOnline = await checkIfOnline();
-    // if(!isOnline) {
-    //   return (707, "No internet!");
-    // }
+    if (!await checkIfOnline()) {
+      return Response(statusCode: 700, message: 'No Internet!');
+    }
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     if (isSecured) {
@@ -71,11 +69,15 @@ class ApiController {
     }
   }
 
-  Future<Response> get({required String url, bool isSecured = false}) async {
-    // bool isOnline = await checkIfOnline();
-    // if(!isOnline) {
-    //   return (707, "No internet!");
-    // }
+  Future<Response> get({
+    required String url,
+    bool isSecured = false,
+    Map<String, String>? params,
+  }) async {
+    if (!await checkIfOnline()) {
+      return Response(statusCode: 700, message: 'No Internet!');
+    }
+
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
     if (isSecured) {
@@ -85,6 +87,12 @@ class ApiController {
 
     try {
       Uri apiURL = Uri.parse(url);
+
+      if (params != null) {
+        print(params);
+        apiURL = apiURL.replace(queryParameters: params);
+      }
+      print("URL === $apiURL");
       final request = await http.get(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;

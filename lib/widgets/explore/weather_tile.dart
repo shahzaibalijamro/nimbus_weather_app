@@ -5,10 +5,19 @@ import 'package:untitled/constants/colors.dart';
 import 'package:untitled/models/city_model.dart';
 
 class WeatherTile extends StatelessWidget {
-  const WeatherTile({super.key, required this.isLoading, required this.city});
+  const WeatherTile({super.key, required this.isLoading, this.city});
 
   final bool isLoading;
-  final City city;
+  final City? city;
+
+  Color iconBg(String iconLabel) {
+    print(iconLabel);
+    if (iconLabel.contains('sun')) {
+      return AppColors.sunBg;
+    } else {
+      return AppColors.rainBg;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,23 +33,23 @@ class WeatherTile extends StatelessWidget {
         child: Row(
           spacing: 14,
           children: [
-            Container(
-              height: 52,
-              width: 52,
-              decoration: BoxDecoration(
-                color: AppColors.rainBg,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: isLoading
-                    ? const Bone.square(size: 28)
-                    : Image.asset(
-                        'assets/icons/${city.weather.condition.icon == 'cloud-fog' ? 'cloud' : city.weather.condition.icon}.png',
+            isLoading && city == null
+                ? Bone.square(size: 52, borderRadius: BorderRadius.circular(16))
+                : Container(
+                    height: 52,
+                    width: 52,
+                    decoration: BoxDecoration(
+                      color: iconBg(city!.weather.condition.icon),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        'assets/icons/${city!.weather.condition.icon}.png',
                         width: 28,
                         height: 28,
                       ),
-              ),
-            ),
+                    ),
+                  ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +58,7 @@ class WeatherTile extends StatelessWidget {
                   isLoading
                       ? const Bone.text(words: 2)
                       : Text(
-                          city.name,
+                          city!.name,
                           style: GoogleFonts.sora(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -59,7 +68,7 @@ class WeatherTile extends StatelessWidget {
                   isLoading
                       ? const Bone.text(words: 2)
                       : Text(
-                          city.country,
+                          city!.country,
                           style: GoogleFonts.dmSans(
                             fontSize: 13,
                             fontWeight: FontWeight.w400,
@@ -72,7 +81,7 @@ class WeatherTile extends StatelessWidget {
             isLoading
                 ? const Bone.text(words: 1)
                 : Text(
-                    '${city.weather.temperatureC.toInt()}°',
+                    '${city!.weather.temperatureC.toInt()}°',
                     style: GoogleFonts.sora(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,

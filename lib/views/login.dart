@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsetsGeometry.only(
+        padding: const EdgeInsetsGeometry.only(
           left: 24,
           right: 24,
           top: 56,
@@ -37,24 +37,24 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: Color(0xFF2F6BFF),
+                color: const Color(0xFF2F6BFF),
                 borderRadius: BorderRadius.circular(18),
               ),
               child: Image.asset(
-                'assets/icons/yellow-sun.png',
+                'assets/icons/white-sun.png',
                 height: 30,
                 width: 30,
               ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             Text(
               'Welcome back',
               style: GoogleFonts.sora(
                 fontWeight: FontWeight.w800,
                 fontSize: 28,
-                color: Color(0xFF0B1B3A),
+                color: const Color(0xFF0B1B3A),
               ),
             ),
             Text(
@@ -62,56 +62,56 @@ class _LoginScreenState extends State<LoginScreen> {
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w400,
                 fontSize: 15,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
               ),
             ),
-            SizedBox(height: 28),
+            const SizedBox(height: 28),
             Obx(
               () => authController.errorMsg.value != null
                   ? Column(
                       children: [
                         Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(14),
+                          padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: Color(0xFFFEE4E2),
+                            color: const Color(0xFFFEE4E2),
                             borderRadius: BorderRadius.circular(14),
                           ),
                           child: Row(
                             spacing: 6,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.emergency,
                                 size: 16,
-                                color: Color(0xFFD92D20),
+                                color: const Color(0xFFD92D20),
                               ),
                               Text(
                                 authController.errorMsg.value!,
                                 style: GoogleFonts.dmSans(
-                                  color: Color(0xFFD92D20),
+                                  color: const Color(0xFFD92D20),
                                   fontSize: 14,
-                                  fontWeight: FontWeight(600),
+                                  fontWeight: const FontWeight(600),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                       ],
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ),
             Text(
               'Email',
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
                 height: 2,
               ),
             ),
             TextField(
-              cursorColor: Color(0xFF5A6B8C),
+              cursorColor: const Color(0xFF5A6B8C),
               cursorHeight: 16,
               controller: emailController,
 
@@ -123,38 +123,38 @@ class _LoginScreenState extends State<LoginScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
                   borderSide: BorderSide(
-                    color: Color(0xFFDCE5F7).withValues(alpha: 0.5),
+                    color: const Color(0xFFDCE5F7).withValues(alpha: 0.5),
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: BorderSide(color: Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
                 ),
 
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 hint: Text(
                   'you@example.com',
                   style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
-                    color: Color(0xFF5A6B8C),
+                    color: const Color(0xFF5A6B8C),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
               'Password',
               style: GoogleFonts.dmSans(
                 fontWeight: FontWeight.w600,
                 fontSize: 13,
-                color: Color(0xFF5A6B8C),
+                color: const Color(0xFF5A6B8C),
                 height: 2,
               ),
             ),
             Obx(
               () => TextField(
-                cursorColor: Color(0xFF5A6B8C),
+                cursorColor: const Color(0xFF5A6B8C),
                 cursorHeight: 16,
                 controller: passwordController,
                 obscureText: authController.isObscured.value,
@@ -179,44 +179,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: BorderSide(
-                      color: Color(0xFFDCE5F7).withValues(alpha: 0.5),
+                      color: const Color(0xFFDCE5F7).withValues(alpha: 0.5),
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide(color: Color(0xFFDCE5F7)),
+                    borderSide: const BorderSide(
+                      color: const Color(0xFFDCE5F7),
+                    ),
                   ),
 
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   hint: Text(
                     'Enter your password',
                     style: GoogleFonts.dmSans(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
-                      color: Color(0xFF5A6B8C),
+                      color: const Color(0xFF5A6B8C),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.all(14),
+              padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: Color(0xFFFFF3CC),
+                color: const Color(0xFFFFF3CC),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Text(
                 'Demo account: demo@nimbus.app / demo1234',
                 style: GoogleFonts.dmMono(
-                  color: Color(0xFFB54708),
+                  color: const Color(0xFFB54708),
                   fontSize: 14,
-                  fontWeight: FontWeight(400),
+                  fontWeight: const FontWeight(400),
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             InkWell(
               onTap: () => authController.login(
                 email: emailController.text,
@@ -224,9 +226,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(14),
+                padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: Color(0xFF2F6BFF),
+                  color: const Color(0xFF2F6BFF),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Center(
@@ -236,10 +238,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       spacing: 20,
                       children: [
                         if (authController.isLoading.value) ...[
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                             height: 16,
-                            child: CircularProgressIndicator(
+                            child: const CircularProgressIndicator(
                               color: Colors.white,
                             ),
                           ),
@@ -251,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: GoogleFonts.dmSans(
                             color: Colors.white,
                             fontSize: 16,
-                            fontWeight: FontWeight(600),
+                            fontWeight: const FontWeight(600),
                           ),
                         ),
                       ],
@@ -260,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 6,
@@ -268,9 +270,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   'New to Nimbus?',
                   style: GoogleFonts.dmSans(
-                    color: Color(0xFF5A6B8C),
+                    color: const Color(0xFF5A6B8C),
                     fontSize: 15,
-                    fontWeight: FontWeight(400),
+                    fontWeight: const FontWeight(400),
                   ),
                 ),
                 InkWell(
@@ -280,9 +282,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'Create account',
                     style: GoogleFonts.dmSans(
-                      color: Color(0xFF2F6BFF),
+                      color: const Color(0xFF2F6BFF),
                       fontSize: 15,
-                      fontWeight: FontWeight(700),
+                      fontWeight: const FontWeight(700),
                     ),
                   ),
                 ),
