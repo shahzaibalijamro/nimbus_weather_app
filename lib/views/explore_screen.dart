@@ -9,6 +9,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/explore_controller.dart';
 import 'package:untitled/widgets/app_bar.dart';
+import 'package:untitled/widgets/explore/error_section.dart';
 import 'package:untitled/widgets/explore/weather_tile.dart';
 
 class ExploreScreen extends StatefulWidget {
@@ -58,13 +59,31 @@ class _ExploreScreenState extends State<ExploreScreen> {
             controller.fetchRegions(),
             controller.fetchCities(refresh: true),
           ]);
+          if (controller.isOffline.value || controller.errorMsg.value != null) {
+            Get.rawSnackbar(
+              snackPosition: SnackPosition.BOTTOM,
+              duration: const Duration(seconds: 2),
+              backgroundColor: AppColors.errorBg,
+              borderRadius: 12,
+              messageText: Text(
+                'Something went wrong!',
+                style: GoogleFonts.dmSans(
+                  color: AppColors.errorText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              barBlur: 50,
+              margin: const EdgeInsets.all(12),
+            );
+          }
           Get.rawSnackbar(
             snackPosition: SnackPosition.BOTTOM,
             duration: const Duration(seconds: 2),
             backgroundColor: AppColors.blue,
             borderRadius: 12,
             messageText: Text(
-              'Explore data refreshed successfully',
+              'Explore data refreshed successfully!',
               style: GoogleFonts.dmSans(
                 color: AppColors.white,
                 fontSize: 14,
@@ -244,104 +263,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   bool isError = controller.errorMsg.value != null;
                   bool isOffline = controller.isOffline.value;
                   if (isError || isOffline) {
-                    return Padding(
-                      padding: const EdgeInsetsGeometry.only(
-                        top: 36,
-                        left: 8,
-                        right: 8,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        spacing: 12,
-                        children: [
-                          Container(
-                            height: 96,
-                            width: 96,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColors.errorBg,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Image.asset(
-                              'assets/icons/wifi-off.png',
-                              height: 44,
-                              width: 44,
-                            ),
-                          ),
-                          Text(
-                            'Can’t reach Nimbus',
-                            style: GoogleFonts.sora(
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.primaryText,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Check your connection or the server, then try again.',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.dmSans(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.secondaryText,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.errorBg,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              'error.code: SERVER_ERROR  ·  500',
-                              style: GoogleFonts.dmMono(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.errorText,
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              controller.fetchCities(refresh: true);
-                              controller.fetchRegions();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 25,
-                                vertical: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.blue,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                spacing: 8,
-                                children: [
-                                  const Icon(
-                                    PhosphorIconsBold.arrowClockwise,
-                                    color: AppColors.white,
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    'Try again',
-                                    style: GoogleFonts.dmSans(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
+                    ErrorSection();
                   }
                   final cities = controller.cities;
 

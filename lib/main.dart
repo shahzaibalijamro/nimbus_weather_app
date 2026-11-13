@@ -4,6 +4,7 @@ import 'package:untitled/constants/routes.dart';
 import 'package:untitled/controllers/api_controller.dart';
 import 'package:untitled/controllers/auth_controller.dart';
 import 'package:untitled/utils/app_utils.dart';
+import 'package:untitled/views/detailed_city.dart';
 import 'package:untitled/views/main_screen.dart';
 import 'package:untitled/views/login.dart';
 import 'package:untitled/views/register.dart';
@@ -30,6 +31,14 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.login, page: () => const LoginScreen()),
         GetPage(name: AppRoutes.register, page: () => const RegisterScreen()),
         GetPage(name: AppRoutes.main, page: () => const MainScreen()),
+        GetPage(
+          name: AppRoutes.detailedCity,
+          page: () {
+            final arguments = Get.arguments;
+
+            return DetailedCity(cityName: arguments['name']);
+          },
+        ),
       ],
       debugShowCheckedModeBanner: false,
     );
