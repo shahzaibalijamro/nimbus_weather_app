@@ -93,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: Color(0xFFDCE5F7)),
                 ),
 
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -134,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: Color(0xFFDCE5F7)),
                 ),
 
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -189,9 +189,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: const BorderSide(
-                      color: const Color(0xFFDCE5F7),
-                    ),
+                    borderSide: const BorderSide(color: Color(0xFFDCE5F7)),
                   ),
 
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),

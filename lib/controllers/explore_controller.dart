@@ -8,6 +8,7 @@ import 'package:untitled/models/region_model.dart';
 
 class ExploreController extends GetxController {
   ApiController apiController = Get.find<ApiController>();
+
   RxList<Region> regions = <Region>[].obs;
   RxList<City> cities = <City>[].obs;
   Rx<Region> selectedRegion = Region(name: 'All', count: 0).obs;
@@ -54,7 +55,7 @@ class ExploreController extends GetxController {
     fetchCities(refresh: true);
   }
 
-  Future<void> fetchCities({bool refresh = false}) async {
+  Future<void> fetchCities({bool refresh = false, String? query}) async {
     isOffline.value = false;
     if (refresh) {
       page.value = 1;
@@ -65,13 +66,7 @@ class ExploreController extends GetxController {
     isLoadingCities.value = true;
     final response = await apiController.get(
       url: ApiEndpoints.cities,
-      params: {
-        'page': page.value.toString(),
-        'limit': 8.toString(),
-        'region': selectedRegion.value.name == 'All'
-            ? ''
-            : selectedRegion.value.name,
-      },
+      params: getParams(query),
     );
     int? statusCode = response.statusCode;
     String? body = response.body;
@@ -88,5 +83,15 @@ class ExploreController extends GetxController {
       isOffline.value = statusCode != null && statusCode == 700;
     }
     isLoadingCities.value = false;
+  }
+
+  Map<String, String> getParams(String? query) {
+    Map<String, String> params = {'limit': '8', 'page': page.value.toString()};
+    if (query != null) params.addAll({'search': query});
+    if (selectedRegion.value.name != 'All') {
+      params.addAll({'region': selectedRegion.value.name});
+    }
+
+    return params;
   }
 }

@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Icon(
                                 Icons.emergency,
                                 size: 16,
-                                color: const Color(0xFFD92D20),
+                                color: Color(0xFFD92D20),
                               ),
                               Text(
                                 authController.errorMsg.value!,
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(14),
-                  borderSide: const BorderSide(color: const Color(0xFFDCE5F7)),
+                  borderSide: const BorderSide(color: Color(0xFFDCE5F7)),
                 ),
 
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -184,9 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: const BorderSide(
-                      color: const Color(0xFFDCE5F7),
-                    ),
+                    borderSide: const BorderSide(color: Color(0xFFDCE5F7)),
                   ),
 
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -241,7 +239,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             width: 16,
                             height: 16,
-                            child: const CircularProgressIndicator(
+                            child: CircularProgressIndicator(
                               color: Colors.white,
                             ),
                           ),

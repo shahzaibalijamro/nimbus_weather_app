@@ -13,6 +13,7 @@ class MainController extends GetxController {
     const FavoritesScreen(),
     const ProfileScreen(),
   ];
+  RxBool isSessionExpired = false.obs;
 
   List<Map<String, dynamic>> navItems = [
     {'icon': const Icon(PhosphorIconsBold.compass), 'label': 'Explore'},
@@ -22,5 +23,9 @@ class MainController extends GetxController {
 
   void switchScreens(int index) {
     screenIndex.value = index;
+  }
+
+  void updateSessionExpiration({required bool isExpired}) {
+    isSessionExpired.value = isExpired;
   }
 }

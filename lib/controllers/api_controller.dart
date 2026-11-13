@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:get/get.dart' hide Response;
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/constants/keys.dart';
+import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/models/response_model.dart';
+import 'package:untitled/utils/app_utils.dart';
 
 class ApiController {
+  AppUtils utils = Get.find<AppUtils>();
   Future<void> _saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(AppKeys.tokenKey, token);
+    await utils.storeStringInPrefs(key: AppKeys.tokenKey, value: token);
   }
 
   Future<String> _retrieveToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(AppKeys.tokenKey) ?? '';
+    return utils.getStringFromPrefs(key: AppKeys.tokenKey) ?? '';
   }
 
   Future<bool> checkIfOnline() async {
@@ -71,7 +72,7 @@ class ApiController {
 
   Future<Response> get({
     required String url,
-    bool isSecured = false,
+    bool requiresToken = false,
     Map<String, String>? params,
   }) async {
     if (!await checkIfOnline()) {
@@ -80,9 +81,18 @@ class ApiController {
 
     Map<String, String> headers = {'Content-Type': 'application/json'};
 
-    if (isSecured) {
+    if (requiresToken) {
       String token = await _retrieveToken();
       headers.addAll({'Authorization': 'Bearer $token'});
+    } else {
+      if (isSessionExpired()) {
+        if (Get.isRegistered<MainController>()) {
+          print("I AM HERE");
+
+          Get.find<MainController>().updateSessionExpiration(isExpired: true);
+        }
+        return Response(statusCode: 403);
+      }
     }
 
     try {
@@ -92,7 +102,7 @@ class ApiController {
         print(params);
         apiURL = apiURL.replace(queryParameters: params);
       }
-      print("URL === $apiURL");
+      print('URL === $apiURL');
       final request = await http.get(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;
@@ -101,5 +111,21 @@ class ApiController {
       print(e);
       return Response(message: 'Something went wrong!');
     }
+  }
+
+  bool isSessionExpired() {
+    String? lastAuthenticatedAt = utils.getStringFromPrefs(
+      key: AppKeys.authenticatedAt,
+    );
+    if (lastAuthenticatedAt != null) {
+      DateTime currentTime = DateTime.now();
+      final decoded = jsonDecode(lastAuthenticatedAt);
+      final expiresInSeconds = int.parse(decoded['expiresInSeconds']);
+      final savedAt = DateTime.parse(decoded['savedAt']);
+      if (currentTime.difference(savedAt).inSeconds > expiresInSeconds) {
+        return true;
+      }
+    }
+    return false;
   }
 }
