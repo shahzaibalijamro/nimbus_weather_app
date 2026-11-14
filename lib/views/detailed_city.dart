@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:untitled/constants/colors.dart';
+import 'package:untitled/constants/icons.dart';
 
 class DetailedCity extends StatefulWidget {
   const DetailedCity({super.key, required this.cityName});
@@ -18,8 +19,12 @@ class _DetailedCityState extends State<DetailedCity> {
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(vertical: 30, horizontal: 16),
+          padding: const EdgeInsetsGeometry.symmetric(
+            vertical: 30,
+            horizontal: 16,
+          ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 14,
             children: [
               Row(
@@ -28,12 +33,12 @@ class _DetailedCityState extends State<DetailedCity> {
                 children: [
                   InkWell(
                     child: Container(
-                      padding: EdgeInsets.all(11),
+                      padding: const EdgeInsets.all(11),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         PhosphorIconsBold.arrowLeft,
                         color: AppColors.primaryText,
                         size: 22,
@@ -42,12 +47,12 @@ class _DetailedCityState extends State<DetailedCity> {
                   ),
                   InkWell(
                     child: Container(
-                      padding: EdgeInsets.all(11),
+                      padding: const EdgeInsets.all(11),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         PhosphorIconsBold.heart,
                         color: AppColors.primaryText,
                         size: 22,
@@ -59,10 +64,10 @@ class _DetailedCityState extends State<DetailedCity> {
               Container(
                 padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF5B8DFF), Color(0xFF1D4FD8)],
+                    colors: const [Color(0xFF5B8DFF), Color(0xFF1D4FD8)],
                   ),
                   borderRadius: BorderRadius.circular(28),
                 ),
@@ -109,7 +114,7 @@ class _DetailedCityState extends State<DetailedCity> {
                           ),
                         ),
                         Image.asset(
-                          'assets/icons/cloud-sun-white.png',
+                          AppIcons.cloudSunWhite,
                           height: 64,
                           width: 64,
                         ),
@@ -131,11 +136,20 @@ class _DetailedCityState extends State<DetailedCity> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 18,
+                            spreadRadius: 0,
+                            offset: Offset(0, 6),
+                            color: AppColors.shadowColor,
+                          ),
+                        ],
                       ),
+
                       child: Column(
                         spacing: 5,
 
@@ -145,11 +159,7 @@ class _DetailedCityState extends State<DetailedCity> {
                             spacing: 5,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'assets/icons/drop.png',
-                                width: 14,
-                                height: 14,
-                              ),
+                              Image.asset(AppIcons.drop, width: 14, height: 14),
                               Text(
                                 'Humidity',
                                 style: GoogleFonts.dmSans(
@@ -174,10 +184,18 @@ class _DetailedCityState extends State<DetailedCity> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 18,
+                            spreadRadius: 0,
+                            offset: Offset(0, 6),
+                            color: AppColors.shadowColor,
+                          ),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,11 +206,7 @@ class _DetailedCityState extends State<DetailedCity> {
                             spacing: 5,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Image.asset(
-                                'assets/icons/wind.png',
-                                width: 14,
-                                height: 14,
-                              ),
+                              Image.asset(AppIcons.wind, width: 14, height: 14),
                               Text(
                                 'Wind',
                                 style: GoogleFonts.dmSans(
@@ -217,10 +231,18 @@ class _DetailedCityState extends State<DetailedCity> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(16),
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 18,
+                            spreadRadius: 0,
+                            offset: Offset(0, 6),
+                            color: AppColors.shadowColor,
+                          ),
+                        ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,7 +253,7 @@ class _DetailedCityState extends State<DetailedCity> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Image.asset(
-                                'assets/icons/sun-blue.png',
+                                AppIcons.sunBlue,
                                 width: 14,
                                 height: 14,
                               ),
@@ -258,6 +280,222 @@ class _DetailedCityState extends State<DetailedCity> {
                     ),
                   ),
                 ],
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurRadius: 18,
+                      spreadRadius: 0,
+                      offset: Offset(0, 6),
+                      color: AppColors.shadowColor,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 10,
+                  children: [
+                    Text(
+                      '5-day forecast',
+                      style: GoogleFonts.sora(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                        color: AppColors.primaryText,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 6,
+                            children: [
+                              Text(
+                                'Tue',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 12,
+                                  color: AppColors.secondaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Image.asset(AppIcons.sun, height: 24, width: 24),
+                              Text(
+                                '30°',
+                                style: GoogleFonts.sora(
+                                  fontSize: 14,
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            spacing: 6,
+                            children: [
+                              Text(
+                                'Tue',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 12,
+                                  color: AppColors.secondaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Image.asset(AppIcons.sun, height: 24, width: 24),
+                              Text(
+                                '30°',
+                                style: GoogleFonts.sora(
+                                  fontSize: 14,
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            spacing: 6,
+                            children: [
+                              Text(
+                                'Tue',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 12,
+                                  color: AppColors.secondaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Image.asset(AppIcons.sun, height: 24, width: 24),
+                              Text(
+                                '30°',
+                                style: GoogleFonts.sora(
+                                  fontSize: 14,
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            spacing: 6,
+                            children: [
+                              Text(
+                                'Tue',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 12,
+                                  color: AppColors.secondaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Image.asset(AppIcons.sun, height: 24, width: 24),
+                              Text(
+                                '30°',
+                                style: GoogleFonts.sora(
+                                  fontSize: 14,
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            spacing: 6,
+                            children: [
+                              Text(
+                                'Tue',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 12,
+                                  color: AppColors.secondaryText,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              Image.asset(AppIcons.sun, height: 24, width: 24),
+                              Text(
+                                '30°',
+                                style: GoogleFonts.sora(
+                                  fontSize: 14,
+                                  color: AppColors.primaryText,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                'Things to do',
+                style: GoogleFonts.sora(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                  color: AppColors.primaryText,
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Row(
+                        spacing: 12,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(7),
+                            decoration: BoxDecoration(
+                              color: AppColors.rainBg,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.asset(
+                              AppIcons.sunBlue,
+                              height: 18,
+                              width: 18,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              'Clifton Beach',
+                              style: GoogleFonts.dmSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                color: AppColors.primaryText,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            'Beach',
+                            style: GoogleFonts.dmSans(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.secondaryText,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 14),
+                  itemCount: 3,
+                ),
               ),
             ],
           ),

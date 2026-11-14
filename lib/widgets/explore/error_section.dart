@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:untitled/constants/colors.dart';
+import 'package:untitled/constants/icons.dart';
 import 'package:untitled/controllers/explore_controller.dart';
 
 class ErrorSection extends StatelessWidget {
@@ -25,11 +26,7 @@ class ErrorSection extends StatelessWidget {
               color: AppColors.errorBg,
               borderRadius: BorderRadius.circular(50),
             ),
-            child: Image.asset(
-              'assets/icons/wifi-off.png',
-              height: 44,
-              width: 44,
-            ),
+            child: Image.asset(AppIcons.wifiOff, height: 44, width: 44),
           ),
           Text(
             'Can’t reach Nimbus',

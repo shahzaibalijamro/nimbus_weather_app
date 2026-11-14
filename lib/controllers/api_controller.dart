@@ -87,7 +87,7 @@ class ApiController {
     } else {
       if (isSessionExpired()) {
         if (Get.isRegistered<MainController>()) {
-          print("I AM HERE");
+          print('I AM HERE');
 
           Get.find<MainController>().updateSessionExpiration(isExpired: true);
         }

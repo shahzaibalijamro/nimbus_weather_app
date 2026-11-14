@@ -9,11 +9,6 @@ class AppUtils extends GetxController {
     print('PREFS INITIALIZED!');
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   String? getStringFromPrefs({required String key}) {
     return prefs!.getString(key);
   }

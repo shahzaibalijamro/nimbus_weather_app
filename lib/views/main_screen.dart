@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:untitled/constants/icons.dart';
 import 'package:untitled/constants/routes.dart';
 import 'package:untitled/controllers/main_controller.dart';
 
@@ -37,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       spacing: 12,
                       children: [
-                        Spacer(),
+                        const Spacer(),
                         Container(
                           height: 96,
                           width: 96,
@@ -47,7 +48,7 @@ class _MainScreenState extends State<MainScreen> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Image.asset(
-                            'assets/icons/lock.png',
+                            AppIcons.lock,
                             height: 44,
                             width: 44,
                           ),
@@ -105,7 +106,7 @@ class _MainScreenState extends State<MainScreen> {
                               mainAxisSize: MainAxisSize.min,
                               spacing: 8,
                               children: [
-                                Icon(
+                                const Icon(
                                   PhosphorIconsBold.lock,
                                   color: AppColors.white,
                                   size: 18,
@@ -122,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                   )

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
+import 'package:untitled/constants/icons.dart';
 import 'package:untitled/controllers/explore_controller.dart';
 import 'package:untitled/widgets/app_bar.dart';
 import 'package:untitled/widgets/explore/error_section.dart';
@@ -315,7 +315,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Image.asset(
-                            'assets/icons/search.png',
+                            AppIcons.search,
                             height: 44,
                             width: 44,
                           ),
