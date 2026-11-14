@@ -15,11 +15,11 @@ class CityPlaces {
   CityPlaces({required this.data});
 
   factory CityPlaces.fromJson(Map<String, dynamic> json) => CityPlaces(
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    data: List<Datum>.from(json['data'].map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    'data': List<dynamic>.from(data.map((x) => x.toJson())),
   };
 }
 
@@ -31,7 +31,7 @@ class Datum {
   Datum({required this.id, required this.name, required this.type});
 
   factory Datum.fromJson(Map<String, dynamic> json) =>
-      Datum(id: json["id"], name: json["name"], type: json["type"]);
+      Datum(id: json['id'], name: json['name'], type: json['type']);
 
-  Map<String, dynamic> toJson() => {"id": id, "name": name, "type": type};
+  Map<String, dynamic> toJson() => {'id': id, 'name': name, 'type': type};
 }

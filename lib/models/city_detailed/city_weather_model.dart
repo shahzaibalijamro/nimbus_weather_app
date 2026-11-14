@@ -15,20 +15,20 @@ class CityWeather {
   CityWeather({required this.data});
 
   factory CityWeather.fromJson(Map<String, dynamic> json) =>
-      CityWeather(data: Data.fromJson(json["data"]));
+      CityWeather(data: Data.fromJson(json['data']));
 
-  Map<String, dynamic> toJson() => {"data": data.toJson()};
+  Map<String, dynamic> toJson() => {'data': data.toJson()};
 }
 
 class Data {
   final String cityId;
   final DateTime observedAt;
-  final double temperatureC;
-  final double feelsLikeC;
-  final int humidity;
-  final int windKph;
-  final int pressureHpa;
-  final int uvIndex;
+  final num temperatureC;
+  final num feelsLikeC;
+  final num humidity;
+  final num windKph;
+  final num pressureHpa;
+  final num uvIndex;
   final Condition condition;
 
   Data({
@@ -44,27 +44,27 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    cityId: json["cityId"],
-    observedAt: DateTime.parse(json["observedAt"]),
-    temperatureC: json["temperatureC"]?.toDouble(),
-    feelsLikeC: json["feelsLikeC"]?.toDouble(),
-    humidity: json["humidity"],
-    windKph: json["windKph"],
-    pressureHpa: json["pressureHpa"],
-    uvIndex: json["uvIndex"],
-    condition: Condition.fromJson(json["condition"]),
+    cityId: json['cityId'],
+    observedAt: DateTime.parse(json['observedAt']),
+    temperatureC: json['temperatureC']?.toDouble(),
+    feelsLikeC: json['feelsLikeC']?.toDouble(),
+    humidity: json['humidity'],
+    windKph: json['windKph'],
+    pressureHpa: json['pressureHpa'],
+    uvIndex: json['uvIndex'],
+    condition: Condition.fromJson(json['condition']),
   );
 
   Map<String, dynamic> toJson() => {
-    "cityId": cityId,
-    "observedAt": observedAt.toIso8601String(),
-    "temperatureC": temperatureC,
-    "feelsLikeC": feelsLikeC,
-    "humidity": humidity,
-    "windKph": windKph,
-    "pressureHpa": pressureHpa,
-    "uvIndex": uvIndex,
-    "condition": condition.toJson(),
+    'cityId': cityId,
+    'observedAt': observedAt.toIso8601String(),
+    'temperatureC': temperatureC,
+    'feelsLikeC': feelsLikeC,
+    'humidity': humidity,
+    'windKph': windKph,
+    'pressureHpa': pressureHpa,
+    'uvIndex': uvIndex,
+    'condition': condition.toJson(),
   };
 }
 
@@ -76,7 +76,7 @@ class Condition {
   Condition({required this.code, required this.label, required this.icon});
 
   factory Condition.fromJson(Map<String, dynamic> json) =>
-      Condition(code: json["code"], label: json["label"], icon: json["icon"]);
+      Condition(code: json['code'], label: json['label'], icon: json['icon']);
 
-  Map<String, dynamic> toJson() => {"code": code, "label": label, "icon": icon};
+  Map<String, dynamic> toJson() => {'code': code, 'label': label, 'icon': icon};
 }

@@ -5,6 +5,7 @@ import 'package:untitled/controllers/api_controller.dart';
 import 'package:untitled/controllers/auth_controller.dart';
 import 'package:untitled/utils/app_utils.dart';
 import 'package:untitled/views/detailed_city.dart';
+import 'package:untitled/views/explore_screen.dart';
 import 'package:untitled/views/main_screen.dart';
 import 'package:untitled/views/login.dart';
 import 'package:untitled/views/register.dart';
@@ -36,7 +37,11 @@ class MyApp extends StatelessWidget {
           page: () {
             final arguments = Get.arguments;
 
-            return DetailedCity(cityName: arguments['name']);
+            if (arguments == null) {
+              return const ExploreScreen();
+            }
+
+            return DetailedCity(city: arguments['city']);
           },
         ),
       ],

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
+import 'package:untitled/constants/routes.dart';
 import 'package:untitled/models/city_model.dart';
 
 class WeatherTile extends StatelessWidget {
@@ -27,7 +28,7 @@ class WeatherTile extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (!isLoading && city != null) {
-            Get.toNamed('/city-detail', arguments: {'name': city!.name});
+            Get.toNamed(AppRoutes.detailedCity, arguments: {'city': city!});
           }
         },
         child: Container(
