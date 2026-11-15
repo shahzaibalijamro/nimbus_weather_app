@@ -74,7 +74,7 @@ class _DetailedCityState extends State<DetailedCity> {
                               color: AppColors.white,
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               PhosphorIconsBold.arrowLeft,
                               color: AppColors.primaryText,
                               size: 22,
@@ -122,7 +122,7 @@ class _DetailedCityState extends State<DetailedCity> {
                         return const SizedBox.shrink();
                       } else {
                         return Container(
-                          margin: EdgeInsets.only(bottom: 14),
+                          margin: const EdgeInsets.only(bottom: 14),
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
@@ -202,7 +202,7 @@ class _DetailedCityState extends State<DetailedCity> {
                                           fontSize: 12,
                                         ),
                                       ),
-                                      Icon(
+                                      const Icon(
                                         PhosphorIconsBold.arrowsClockwise,
                                         color: AppColors.white,
                                         size: 16,

@@ -29,7 +29,7 @@ class CityController extends GetxController {
   RxBool isUpdatingFavorites = false.obs;
   RxBool isSessionExpired = false.obs;
   RxBool isFavoritesLoading = false.obs;
-  Rx<Favorite> isFavorite = Favorite(value: false).obs;
+  Rx<IsFavorite> isFavorite = IsFavorite(value: false).obs;
 
   Future<void> fetchCityWeather(String cityId) async {
     if (cityWeatherLoading.value) return;
@@ -72,10 +72,10 @@ class CityController extends GetxController {
       final favorites = Favorites.fromJson(jsonDecode(responseBody!));
       for (var favorite in favorites.data) {
         if (favorite.city.id == cityId) {
-          isFavorite.value = Favorite(value: true, id: favorite.id);
+          isFavorite.value = IsFavorite(value: true, id: favorite.id);
           break;
         } else {
-          isFavorite.value = Favorite(value: false);
+          isFavorite.value = IsFavorite(value: false);
         }
       }
       notFound.value = false;
@@ -195,7 +195,7 @@ class CityController extends GetxController {
     final String? message = response.message;
     final String? body = response.body;
     if (statusCode != null && statusCode == 201) {
-      isFavorite.value = Favorite(
+      isFavorite.value = IsFavorite(
         value: true,
         id: jsonDecode(body!)['data']['id'],
       );
@@ -240,7 +240,7 @@ class CityController extends GetxController {
     final int? statusCode = response.statusCode;
     final String? message = response.message;
     if (statusCode != null && statusCode == 204) {
-      isFavorite.value = Favorite(value: false);
+      isFavorite.value = IsFavorite(value: false);
       notFound.value = false;
       isOffline.value = false;
       errorMsg.value = null;

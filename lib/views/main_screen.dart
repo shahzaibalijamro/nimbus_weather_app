@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:untitled/constants/icons.dart';
-import 'package:untitled/constants/routes.dart';
 import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/views/unauthenticated_screen.dart';
 
