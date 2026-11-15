@@ -113,6 +113,26 @@ class ApiController {
     }
   }
 
+  Future<Response> delete({required String url}) async {
+    if (!await checkIfOnline()) {
+      return Response(statusCode: 700, message: 'No Internet!');
+    }
+    String token = await _retrieveToken();
+    Map<String, String> headers = {'Authorization': 'Bearer $token'};
+
+    try {
+      Uri apiURL = Uri.parse(url);
+      print('URL === $apiURL');
+      final request = await http.delete(apiURL, headers: headers);
+      int statusCode = request.statusCode;
+      String response = request.body;
+      return Response(statusCode: statusCode, body: response);
+    } catch (e) {
+      print(e);
+      return Response(message: 'Something went wrong!');
+    }
+  }
+
   bool isSessionExpired() {
     String? lastAuthenticatedAt = utils.getStringFromPrefs(
       key: AppKeys.authenticatedAt,

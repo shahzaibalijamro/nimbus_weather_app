@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:untitled/widgets/app_bar.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -10,6 +12,14 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return RefreshIndicator(
+      onRefresh: () async {
+        return;
+      },
+      child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+        child: Column(spacing: 14, children: [MyAppBar()]),
+      ),
+    );
   }
 }

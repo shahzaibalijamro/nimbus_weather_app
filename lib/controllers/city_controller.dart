@@ -1,12 +1,17 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:untitled/constants/api.dart';
+import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/api_controller.dart';
+import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/models/city_detailed/city_detailed_model.dart';
 import 'package:untitled/models/city_detailed/city_forecast_model.dart';
 import 'package:untitled/models/city_detailed/city_places.dart';
 import 'package:untitled/models/city_detailed/city_weather_model.dart';
+import 'package:untitled/models/favorites_model.dart';
 
 class CityController extends GetxController {
   ApiController apiController = Get.find<ApiController>();
@@ -21,8 +26,13 @@ class CityController extends GetxController {
   RxBool notFound = false.obs;
   RxBool isOffline = false.obs;
   RxnString errorMsg = RxnString();
+  RxBool isUpdatingFavorites = false.obs;
+  RxBool isSessionExpired = false.obs;
+  RxBool isFavoritesLoading = false.obs;
+  Rx<Favorite> isFavorite = Favorite(value: false).obs;
 
-  void fetchCityWeather(String cityId) async {
+  Future<void> fetchCityWeather(String cityId) async {
+    if (cityWeatherLoading.value) return;
     cityWeatherLoading.value = true;
     final response = await apiController.get(
       url: '${ApiEndpoints.cities}/$cityId/weather',
@@ -48,7 +58,42 @@ class CityController extends GetxController {
     cityWeatherLoading.value = false;
   }
 
-  void fetchCityDetail(String cityId) async {
+  Future<void> fetchFavorites(String cityId) async {
+    if (isFavoritesLoading.value) return;
+    isFavoritesLoading.value = true;
+    final response = await apiController.get(
+      url: ApiEndpoints.favorites,
+      requiresToken: true,
+    );
+    final int? statusCode = response.statusCode;
+    final String? message = response.message;
+    final String? responseBody = response.body;
+    if (statusCode != null && statusCode == 200) {
+      final favorites = Favorites.fromJson(jsonDecode(responseBody!));
+      for (var favorite in favorites.data) {
+        if (favorite.city.id == cityId) {
+          isFavorite.value = Favorite(value: true, id: favorite.id);
+          break;
+        } else {
+          isFavorite.value = Favorite(value: false);
+        }
+      }
+      notFound.value = false;
+      isOffline.value = false;
+      errorMsg.value = null;
+    }
+    if (statusCode != null && statusCode == 401) {
+      isSessionExpired.value = true;
+      Get.find<MainController>().updateSessionExpiration(isExpired: true);
+    }
+    if (statusCode == null) {
+      errorMsg.value = message;
+    }
+    isFavoritesLoading.value = false;
+  }
+
+  Future<void> fetchCityDetail(String cityId) async {
+    if (cityDetailLoading.value) return;
     cityDetailLoading.value = true;
     final response = await apiController.get(
       url: '${ApiEndpoints.cities}/$cityId',
@@ -74,7 +119,8 @@ class CityController extends GetxController {
     cityDetailLoading.value = false;
   }
 
-  void fetchCityForecast(String cityId) async {
+  Future<void> fetchCityForecast(String cityId) async {
+    if (cityforecastLoading.value) return;
     cityforecastLoading.value = true;
     final response = await apiController.get(
       url: '${ApiEndpoints.cities}/$cityId/forecast',
@@ -101,7 +147,8 @@ class CityController extends GetxController {
     cityforecastLoading.value = false;
   }
 
-  void fetchCityPlaces(String cityId) async {
+  Future<void> fetchCityPlaces(String cityId) async {
+    if (cityPlacesLoading.value) return;
     cityPlacesLoading.value = true;
     final response = await apiController.get(
       url: '${ApiEndpoints.cities}/$cityId/places',
@@ -125,5 +172,106 @@ class CityController extends GetxController {
       errorMsg.value = message;
     }
     cityPlacesLoading.value = false;
+  }
+
+  Future<void> toggleFavorite(String cityId) async {
+    if (isUpdatingFavorites.value) return;
+    isUpdatingFavorites.value = true;
+    if (isFavorite.value.value) {
+      await removeFromFavorite('${isFavorite.value.id!}');
+    } else {
+      await addToFavorite(cityId);
+    }
+    isUpdatingFavorites.value = false;
+  }
+
+  Future<void> addToFavorite(String cityId) async {
+    final response = await apiController.post(
+      url: ApiEndpoints.favorites,
+      body: {'cityId': cityId},
+      isSecured: true,
+    );
+    final int? statusCode = response.statusCode;
+    final String? message = response.message;
+    final String? body = response.body;
+    if (statusCode != null && statusCode == 201) {
+      isFavorite.value = Favorite(
+        value: true,
+        id: jsonDecode(body!)['data']['id'],
+      );
+      notFound.value = false;
+      isOffline.value = false;
+      errorMsg.value = null;
+    }
+    if (statusCode != null && statusCode == 401) {
+      isSessionExpired.value = true;
+      Get.find<MainController>().updateSessionExpiration(isExpired: true);
+    }
+    if (statusCode != null && statusCode == 409) {
+      Get.rawSnackbar(
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.errorBg,
+        borderRadius: 12,
+        messageText: Text(
+          'Already added To Favorites!',
+          style: GoogleFonts.dmSans(
+            color: AppColors.errorText,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        barBlur: 50,
+        margin: const EdgeInsets.all(12),
+      );
+    }
+    if (statusCode != null && statusCode == 700) {
+      isOffline.value = true;
+    }
+    if (statusCode == null) {
+      errorMsg.value = message;
+    }
+  }
+
+  Future<void> removeFromFavorite(String favoriteId) async {
+    final response = await apiController.delete(
+      url: '${ApiEndpoints.favorites}/$favoriteId',
+    );
+    final int? statusCode = response.statusCode;
+    final String? message = response.message;
+    if (statusCode != null && statusCode == 204) {
+      isFavorite.value = Favorite(value: false);
+      notFound.value = false;
+      isOffline.value = false;
+      errorMsg.value = null;
+    }
+    if (statusCode != null && statusCode == 401) {
+      isSessionExpired.value = true;
+      Get.find<MainController>().updateSessionExpiration(isExpired: true);
+    }
+    if (statusCode != null && statusCode == 404) {
+      Get.rawSnackbar(
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.errorBg,
+        borderRadius: 12,
+        messageText: Text(
+          'Already removed from Favorites!',
+          style: GoogleFonts.dmSans(
+            color: AppColors.errorText,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        barBlur: 50,
+        margin: const EdgeInsets.all(12),
+      );
+    }
+    if (statusCode != null && statusCode == 700) {
+      isOffline.value = true;
+    }
+    if (statusCode == null) {
+      errorMsg.value = message;
+    }
   }
 }

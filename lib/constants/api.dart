@@ -5,4 +5,5 @@ class ApiEndpoints {
   static const signUp = '$_baseURL/auth/register';
   static const regions = '$_baseURL/cities/regions';
   static const cities = '$_baseURL/cities';
+  static const favorites = '$_baseURL/favorites';
 }

@@ -25,10 +25,13 @@ class _DetailedCityState extends State<DetailedCity> {
   }
 
   Future<void> fetchCityData() async {
-    controller.fetchCityDetail(widget.city.id);
-    controller.fetchCityForecast(widget.city.id);
-    controller.fetchCityPlaces(widget.city.id);
-    controller.fetchCityWeather(widget.city.id);
+    await Future.wait([
+      controller.fetchCityDetail(widget.city.id),
+      controller.fetchCityForecast(widget.city.id),
+      controller.fetchCityPlaces(widget.city.id),
+      controller.fetchCityWeather(widget.city.id),
+      controller.fetchFavorites(widget.city.id),
+    ]);
   }
 
   @override
@@ -49,6 +52,7 @@ class _DetailedCityState extends State<DetailedCity> {
             backgroundColor: AppColors.backgroundColor,
             onRefresh: fetchCityData,
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsetsGeometry.symmetric(
                   vertical: 30,
@@ -70,29 +74,47 @@ class _DetailedCityState extends State<DetailedCity> {
                               color: AppColors.white,
                               borderRadius: BorderRadius.circular(50),
                             ),
-                            child: const Icon(
+                            child: Icon(
                               PhosphorIconsBold.arrowLeft,
                               color: AppColors.primaryText,
                               size: 22,
                             ),
                           ),
                         ),
-                        InkWell(
-                          child: Container(
-                            padding: const EdgeInsets.all(11),
-                            decoration: BoxDecoration(
-                              color: AppColors.white,
-                              borderRadius: BorderRadius.circular(50),
+                        Obx(() {
+                          bool isLoading = controller.isFavoritesLoading.value;
+                          bool isFavorited = controller.isFavorite.value.value;
+                          return Skeletonizer(
+                            enabled: isLoading,
+                            child: InkWell(
+                              onTap: () {
+                                if (isLoading) return;
+                                controller.toggleFavorite(widget.city.id);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(11),
+                                decoration: BoxDecoration(
+                                  color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: !isFavorited
+                                    ? const Icon(
+                                        PhosphorIconsBold.heart,
+                                        color: AppColors.errorText,
+                                        size: 22,
+                                      )
+                                    : const Icon(
+                                        PhosphorIconsFill.heart,
+                                        color: AppColors.errorText,
+                                        size: 22,
+                                      ),
+                              ),
                             ),
-                            child: const Icon(
-                              PhosphorIconsBold.heart,
-                              color: AppColors.primaryText,
-                              size: 22,
-                            ),
-                          ),
-                        ),
+                          );
+                        }),
                       ],
                     ),
+
                     const SizedBox(height: 14),
                     Obx(() {
                       bool isOffline = controller.isOffline.value;
