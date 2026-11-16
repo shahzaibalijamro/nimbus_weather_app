@@ -33,9 +33,10 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsetsGeometry.symmetric(
-                vertical: 30,
-                horizontal: 16,
+              padding: const EdgeInsetsGeometry.only(
+                top: 30,
+                left: 16,
+                right: 16,
               ),
               child: controller.isSessionExpired.value
                   ? const UnauthenticatedScreen()

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
 import 'package:untitled/models/favorites_model.dart';
+import 'package:untitled/widgets/favorites/bottom_sheet.dart';
+import 'package:untitled/widgets/favorites/favorite_dialog.dart';
 
 class FavoriteTile extends StatelessWidget {
   const FavoriteTile({super.key, required this.isLoading, this.favorite});
@@ -81,18 +82,20 @@ class FavoriteTile extends StatelessWidget {
                           spacing: 5,
                           children: [
                             const Icon(
-                              PhosphorIconsBold.pencilSimple,
+                              PhosphorIconsBold.pencilSimpleLine,
                               size: 12,
                               color: AppColors.secondaryText,
                             ),
-                            Text(
-                              favorite!.note.trim() == ''
-                                  ? '"No note"'
-                                  : '"${favorite!.note}"',
-                              style: GoogleFonts.dmSans(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.secondaryText,
+                            Expanded(
+                              child: Text(
+                                favorite!.note.trim() == ''
+                                    ? '"No note"'
+                                    : '"${favorite!.note}"',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.secondaryText,
+                                ),
                               ),
                             ),
                           ],
@@ -103,7 +106,8 @@ class FavoriteTile extends StatelessWidget {
             isLoading
                 ? const Bone.square(size: 36)
                 : InkWell(
-                    onTap: () => Get.bottomSheet(Container()),
+                    onTap: () =>
+                        const FavoritesBottomSheet().showBottomSheet(favorite!),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -120,6 +124,7 @@ class FavoriteTile extends StatelessWidget {
             isLoading
                 ? const Bone.square(size: 36)
                 : InkWell(
+                    onTap: () => showFavoriteDialog(favorite!),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(

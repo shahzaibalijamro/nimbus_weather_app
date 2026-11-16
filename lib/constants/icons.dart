@@ -21,4 +21,5 @@ class AppIcons {
   static const String wifiOff = '${_basePath}wifi-off.png';
   static const String wind = '${_basePath}wind.png';
   static const String landmark = '${_basePath}landmark.png';
+  static const String trash = '${_basePath}trash.png';
 }

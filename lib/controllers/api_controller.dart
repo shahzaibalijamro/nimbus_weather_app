@@ -70,6 +70,48 @@ class ApiController {
     }
   }
 
+  Future<Response> patch({
+    required String url,
+    required Map<String, dynamic> body,
+    bool isSecured = false,
+    bool isLogin = false,
+  }) async {
+    if (!await checkIfOnline()) {
+      return Response(statusCode: 700, message: 'No Internet!');
+    }
+    Map<String, String> headers = {'Content-Type': 'application/json'};
+
+    if (isSecured) {
+      String token = await _retrieveToken();
+      headers.addAll({'Authorization': 'Bearer $token'});
+    }
+
+    try {
+      Uri apiURL = Uri.parse(url);
+      final request = await http.patch(
+        apiURL,
+        headers: headers,
+        body: jsonEncode(body),
+      );
+      int statusCode = request.statusCode;
+      String response = request.body;
+      print(statusCode);
+      print(response);
+
+      // save token if login
+      if (isLogin && (statusCode == 200 || statusCode == 201)) {
+        print('TOKEN CHALRAHA');
+        String token = jsonDecode(response)['token'];
+        await _saveToken(token);
+      }
+      return Response(statusCode: statusCode, body: response);
+    } catch (e) {
+      print(e);
+      // if(status)
+      return Response(message: 'Something went wrong!');
+    }
+  }
+
   Future<Response> get({
     required String url,
     bool requiresToken = false,

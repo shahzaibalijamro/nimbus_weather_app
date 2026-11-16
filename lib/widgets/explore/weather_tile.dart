@@ -26,6 +26,7 @@ class WeatherTile extends StatelessWidget {
     return Skeletonizer(
       enabled: isLoading,
       child: InkWell(
+        hoverColor: Colors.transparent,
         onTap: () {
           if (!isLoading && city != null) {
             Get.toNamed(AppRoutes.detailedCity, arguments: {'city': city!});
@@ -37,14 +38,14 @@ class WeatherTile extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                color: AppColors.shadowColor,
-                offset: Offset(0, 6),
-                spreadRadius: 0,
-                blurRadius: 18,
-              ),
-            ],
+            // boxShadow: const [
+            //   BoxShadow(
+            //     color: AppColors.shadowColor,
+            //     offset: Offset(0, 6),
+            //     spreadRadius: 0,
+            //     blurRadius: 18,
+            //   ),
+            // ],
           ),
           child: Row(
             spacing: 14,

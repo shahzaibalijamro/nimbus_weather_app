@@ -13,4 +13,5 @@ class AppColors {
   static const Color errorBg = Color(0xFFFFE9EA);
   static const Color errorText = Color(0xFFE5484D);
   static const Color shadowColor = Color(0x1A2E6BFF);
+  static const Color dragHandleColor = Color(0xFFCFD8EE);
 }

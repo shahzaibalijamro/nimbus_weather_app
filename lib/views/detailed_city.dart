@@ -608,6 +608,7 @@ class _DetailedCityState extends State<DetailedCity> {
                             Skeletonizer(
                               enabled: isLoading,
                               child: Container(
+                                margin: const EdgeInsets.only(bottom: 14),
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 10,
                                   horizontal: 12,

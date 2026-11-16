@@ -8,6 +8,7 @@ import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/api_controller.dart';
 import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/models/favorites_model.dart';
+import 'package:untitled/widgets/favorites/favorite_dialog.dart';
 
 class FavoritesController extends GetxController {
   ApiController apiController = Get.find<ApiController>();
@@ -71,6 +72,59 @@ class FavoritesController extends GetxController {
         borderRadius: 12,
         messageText: Text(
           'Already added To Favorites!',
+          style: GoogleFonts.dmSans(
+            color: AppColors.errorText,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        barBlur: 50,
+        margin: const EdgeInsets.all(12),
+      );
+    }
+    if (statusCode != null && statusCode == 700) {
+      isOffline.value = true;
+    }
+    if (statusCode == null) {
+      errorMsg.value = message;
+    }
+    isUpdatingFavorites.value = false;
+  }
+
+  Future<void> updateFavoriteNote(String favoriteId, String note) async {
+    if (isUpdatingFavorites.value) return;
+    isUpdatingFavorites.value = true;
+    final response = await apiController.patch(
+      url: '${ApiEndpoints.favorites}/$favoriteId',
+      body: {'note': note},
+      isSecured: true,
+    );
+    final int? statusCode = response.statusCode;
+    final String? message = response.message;
+    final String? body = response.body;
+    if (statusCode != null && statusCode == 200) {
+      final index = favorites.indexWhere(
+        (favorite) => favorite.id.toString() == favoriteId,
+      );
+
+      if (index != -1) {
+        favorites[index] = Favorite.fromJson(jsonDecode(body!)['data']);
+      }
+      isOffline.value = false;
+      errorMsg.value = null;
+    }
+    if (statusCode != null && statusCode == 401) {
+      isSessionExpired.value = true;
+      Get.find<MainController>().updateSessionExpiration(isExpired: true);
+    }
+    if (statusCode != null && statusCode == 404) {
+      Get.rawSnackbar(
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.errorBg,
+        borderRadius: 12,
+        messageText: Text(
+          'Favorite not found!',
           style: GoogleFonts.dmSans(
             color: AppColors.errorText,
             fontSize: 14,

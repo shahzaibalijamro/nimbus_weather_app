@@ -265,7 +265,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                     : cities.length + (!isLastBatch ? 1 : 0);
                 if (isLoading || cities.isNotEmpty) {
                   return ListView.separated(
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.only(bottom: 16),
                     controller: scrollController,
                     itemBuilder: (context, index) {
                       bool showLastShimmer =
