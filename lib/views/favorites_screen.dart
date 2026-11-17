@@ -5,6 +5,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/favorites_controller.dart';
+import 'package:untitled/widgets/favorites/bottom_sheet.dart';
 import 'package:untitled/widgets/favorites/favorites_tile.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -70,32 +71,36 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.blue,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Row(
-                    spacing: 6,
-                    children: [
-                      const Icon(
-                        PhosphorIconsBold.plus,
-                        size: 16,
-                        color: AppColors.white,
-                      ),
-                      Text(
-                        'Add',
-                        style: GoogleFonts.dmSans(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14,
+                InkWell(
+                  onTap: () => const FavoritesBottomSheet().showBottomSheet(),
+                  borderRadius: BorderRadius.circular(50),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColors.blue,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: Row(
+                      spacing: 6,
+                      children: [
+                        const Icon(
+                          PhosphorIconsBold.plus,
+                          size: 16,
                           color: AppColors.white,
                         ),
-                      ),
-                    ],
+                        Text(
+                          'Add',
+                          style: GoogleFonts.dmSans(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

@@ -106,8 +106,9 @@ class FavoriteTile extends StatelessWidget {
             isLoading
                 ? const Bone.square(size: 36)
                 : InkWell(
-                    onTap: () =>
-                        const FavoritesBottomSheet().showBottomSheet(favorite!),
+                    onTap: () => const FavoritesBottomSheet().showBottomSheet(
+                      favoriteCity: favorite!,
+                    ),
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(

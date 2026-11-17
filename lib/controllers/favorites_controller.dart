@@ -8,16 +8,64 @@ import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/api_controller.dart';
 import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/models/favorites_model.dart';
-import 'package:untitled/widgets/favorites/favorite_dialog.dart';
+import 'package:untitled/models/city_model.dart' as city_model;
 
 class FavoritesController extends GetxController {
   ApiController apiController = Get.find<ApiController>();
   RxList<Favorite> favorites = <Favorite>[].obs;
+  RxList<city_model.City> availableCities = <city_model.City>[].obs;
   RxBool isOffline = false.obs;
   RxnString errorMsg = RxnString();
+  RxnString availableCitiesError = RxnString();
   RxBool isUpdatingFavorites = false.obs;
   RxBool isSessionExpired = false.obs;
   RxBool isFavoritesLoading = false.obs;
+  RxBool isLoadingAvailableCities = false.obs;
+  int _availableCitiesPage = 1;
+  bool _hasMoreAvailableCities = true;
+  int _availableCitiesRequestId = 0;
+  bool get hasMoreAvailableCities => _hasMoreAvailableCities;
+
+  Future<void> fetchAvailableCities({
+    bool refresh = false,
+    String? query,
+  }) async {
+    if (refresh) {
+      _availableCitiesRequestId++;
+      _availableCitiesPage = 1;
+      _hasMoreAvailableCities = true;
+      availableCities.clear();
+      availableCitiesError.value = null;
+    } else if (isLoadingAvailableCities.value || !_hasMoreAvailableCities) {
+      return;
+    }
+
+    final requestId = _availableCitiesRequestId;
+    isLoadingAvailableCities.value = true;
+    final response = await apiController.get(
+      url: ApiEndpoints.cities,
+      params: {
+        'limit': '8',
+        'page': _availableCitiesPage.toString(),
+        if (query != null && query.isNotEmpty) 'search': query,
+      },
+    );
+
+    if (requestId != _availableCitiesRequestId) return;
+
+    final statusCode = response.statusCode;
+    if (statusCode != null && (statusCode == 200 || statusCode == 201)) {
+      final cities = city_model.Cities.fromJson(jsonDecode(response.body!));
+      availableCities.addAll(cities.data);
+      _availableCitiesPage++;
+      _hasMoreAvailableCities = cities.meta.hasNext;
+      availableCitiesError.value = null;
+    } else {
+      availableCitiesError.value =
+          response.message ?? 'Unable to load cities. Please try again.';
+    }
+    isLoadingAvailableCities.value = false;
+  }
 
   Future<void> fetchFavorites() async {
     if (isFavoritesLoading.value) return;
@@ -44,12 +92,12 @@ class FavoritesController extends GetxController {
     isFavoritesLoading.value = false;
   }
 
-  Future<void> addToFavorite(String cityId) async {
-    if (isUpdatingFavorites.value) return;
+  Future<bool> addToFavorite(String cityId, String note) async {
+    if (isUpdatingFavorites.value) return false;
     isUpdatingFavorites.value = true;
     final response = await apiController.post(
       url: ApiEndpoints.favorites,
-      body: {'cityId': cityId},
+      body: {'cityId': cityId, 'note': note},
       isSecured: true,
     );
     final int? statusCode = response.statusCode;
@@ -89,10 +137,11 @@ class FavoritesController extends GetxController {
       errorMsg.value = message;
     }
     isUpdatingFavorites.value = false;
+    return statusCode == 201;
   }
 
-  Future<void> updateFavoriteNote(String favoriteId, String note) async {
-    if (isUpdatingFavorites.value) return;
+  Future<bool> updateFavoriteNote(String favoriteId, String note) async {
+    if (isUpdatingFavorites.value) return false;
     isUpdatingFavorites.value = true;
     final response = await apiController.patch(
       url: '${ApiEndpoints.favorites}/$favoriteId',
@@ -142,6 +191,7 @@ class FavoritesController extends GetxController {
       errorMsg.value = message;
     }
     isUpdatingFavorites.value = false;
+    return statusCode == 200;
   }
 
   Future<void> removeFromFavorite(String favoriteId) async {

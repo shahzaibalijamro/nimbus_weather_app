@@ -11,8 +11,8 @@ Future<bool?> showFavoriteDialog(Favorite favoriteCity) {
   return Get.dialog<bool>(
     Center(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        padding: EdgeInsets.all(24),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.circular(24),
@@ -60,7 +60,10 @@ Future<bool?> showFavoriteDialog(Favorite favoriteCity) {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.errorText,
                     borderRadius: BorderRadius.circular(16),
@@ -83,7 +86,10 @@ Future<bool?> showFavoriteDialog(Favorite favoriteCity) {
                 onTap: () => Get.back(result: false),
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 10,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(16),
