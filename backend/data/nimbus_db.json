@@ -1,0 +1,979 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Demo Explorer",
+      "email": "demo@nimbus.app",
+      "passwordHash": "$2a$10$aft/tCztllOcC57oIwXjBe0X7LbM1p5p5ROtxbvPxviyVDjlQ1DwC",
+      "createdAt": "2026-11-18T09:34:56.946Z"
+    },
+    {
+      "id": 2,
+      "name": "Alex Updated",
+      "email": "updated_testuser_1794994498156@nimbus.app",
+      "passwordHash": "$2a$10$9Ooom32JT/9eDKASYfgiPuwi7PLZoUkiDp5I4goLF8OVL8b0294oy",
+      "createdAt": "2026-11-18T09:34:58.293Z"
+    },
+    {
+      "id": 3,
+      "name": "Alex Updated",
+      "email": "updated_testuser_1794997871026@nimbus.app",
+      "passwordHash": "$2a$10$KD92./TBxIUBWvF7IYWSyeud0ahOrFYpsmHMIPluvEgGhdJaNlx8q",
+      "createdAt": "2026-11-18T10:31:11.136Z"
+    },
+    {
+      "id": 4,
+      "name": "Fast User",
+      "email": "fast@test.com",
+      "passwordHash": "$2a$10$nQ/ZsC0fQ3jsE30CaYiOceT4C6jvHEeknDqg2UXQX3GmxvcQMhgIG",
+      "createdAt": "2026-11-18T10:31:43.291Z"
+    }
+  ],
+  "cities": [
+    {
+      "id": "karachi",
+      "name": "Karachi",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The City of Lights and bustling Arabian Sea metropolis",
+      "population": 16000000,
+      "lat": 24.8607,
+      "lon": 67.0011,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "lahore",
+      "name": "Lahore",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The cultural soul of Pakistan, rich in Mughal grandeur",
+      "population": 13000000,
+      "lat": 31.5497,
+      "lon": 74.3436,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "islamabad",
+      "name": "Islamabad",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The serene capital nestled at the foothills of the Margallas",
+      "population": 1200000,
+      "lat": 33.6844,
+      "lon": 73.0479,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "rawalpindi",
+      "name": "Rawalpindi",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "Vibrant garrison city with historic bazaars and colonial charm",
+      "population": 2300000,
+      "lat": 33.5651,
+      "lon": 73.0169,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "peshawar",
+      "name": "Peshawar",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "Historic gateway of the Khyber Pass and City of Flowers",
+      "population": 2300000,
+      "lat": 34.0151,
+      "lon": 71.5249,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "multan",
+      "name": "Multan",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The ancient City of Saints, mystic shrines, and blue pottery",
+      "population": 2100000,
+      "lat": 30.1575,
+      "lon": 71.5249,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "faisalabad",
+      "name": "Faisalabad",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "Industrial powerhouse and Manchester of Pakistan",
+      "population": 3600000,
+      "lat": 31.4504,
+      "lon": 73.135,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "quetta",
+      "name": "Quetta",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The Fruit Garden of Pakistan surrounded by rugged peaks",
+      "population": 1100000,
+      "lat": 30.1798,
+      "lon": 66.975,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "sialkot",
+      "name": "Sialkot",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "World-renowned hub of surgical craft, sports, and aviation",
+      "population": 700000,
+      "lat": 32.4945,
+      "lon": 74.5229,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "gwadar",
+      "name": "Gwadar",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "The deep-sea crown jewel overlooking the Arabian Sea",
+      "population": 140000,
+      "lat": 25.1216,
+      "lon": 62.3254,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "murree",
+      "name": "Murree",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "Queen of the Hills with misty pine forests and winter snow",
+      "population": 35000,
+      "lat": 33.907,
+      "lon": 73.3943,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "gilgit",
+      "name": "Gilgit",
+      "country": "Pakistan",
+      "region": "Asia",
+      "tagline": "Spectacular mountain hub at the meeting of three giants",
+      "population": 220000,
+      "lat": 35.9208,
+      "lon": 74.3144,
+      "timezone": "Asia/Karachi"
+    },
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "country": "Japan",
+      "region": "Asia",
+      "tagline": "Where ultramodern neon meets ancient shrines",
+      "population": 13960000,
+      "lat": 35.6762,
+      "lon": 139.6503,
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "id": "singapore",
+      "name": "Singapore",
+      "country": "Singapore",
+      "region": "Asia",
+      "tagline": "A dynamic garden city-state of innovation",
+      "population": 5917000,
+      "lat": 1.3521,
+      "lon": 103.8198,
+      "timezone": "Asia/Singapore"
+    },
+    {
+      "id": "bangkok",
+      "name": "Bangkok",
+      "country": "Thailand",
+      "region": "Asia",
+      "tagline": "Ornate temples, street flavors, and vibrant canals",
+      "population": 10539000,
+      "lat": 13.7563,
+      "lon": 100.5018,
+      "timezone": "Asia/Bangkok"
+    },
+    {
+      "id": "kuala-lumpur",
+      "name": "Kuala Lumpur",
+      "country": "Malaysia",
+      "region": "Asia",
+      "tagline": "Petronas towers, lush rainforests, and multicultural soul",
+      "population": 1980000,
+      "lat": 3.139,
+      "lon": 101.6869,
+      "timezone": "Asia/Kuala_Lumpur"
+    },
+    {
+      "id": "seoul",
+      "name": "Seoul",
+      "country": "South Korea",
+      "region": "Asia",
+      "tagline": "High-tech metropolis steeped in royal palace heritage",
+      "population": 9700000,
+      "lat": 37.5665,
+      "lon": 126.978,
+      "timezone": "Asia/Seoul"
+    },
+    {
+      "id": "beijing",
+      "name": "Beijing",
+      "country": "China",
+      "region": "Asia",
+      "tagline": "Imperial Forbidden City alongside soaring modern architecture",
+      "population": 21540000,
+      "lat": 39.9042,
+      "lon": 116.4074,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "shanghai",
+      "name": "Shanghai",
+      "country": "China",
+      "region": "Asia",
+      "tagline": "The Bund skyline, financial energy, and Huangpu riverfront",
+      "population": 26320000,
+      "lat": 31.2304,
+      "lon": 121.4737,
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "hong-kong",
+      "name": "Hong Kong",
+      "country": "Hong Kong",
+      "region": "Asia",
+      "tagline": "Towering skyline framed by Victoria Harbour and peaks",
+      "population": 7413000,
+      "lat": 22.3193,
+      "lon": 114.1694,
+      "timezone": "Asia/Hong_Kong"
+    },
+    {
+      "id": "jakarta",
+      "name": "Jakarta",
+      "country": "Indonesia",
+      "region": "Asia",
+      "tagline": "Dynamic Southeast Asian hub of islands and maritime culture",
+      "population": 10560000,
+      "lat": -6.2088,
+      "lon": 106.8456,
+      "timezone": "Asia/Jakarta"
+    },
+    {
+      "id": "delhi",
+      "name": "Delhi",
+      "country": "India",
+      "region": "Asia",
+      "tagline": "Historic forts, lively spice markets, and political heart",
+      "population": 33000000,
+      "lat": 28.6139,
+      "lon": 77.209,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "id": "mumbai",
+      "name": "Mumbai",
+      "country": "India",
+      "region": "Asia",
+      "tagline": "City of Dreams on the Arabian coast with colonial architecture",
+      "population": 21000000,
+      "lat": 19.076,
+      "lon": 72.8777,
+      "timezone": "Asia/Kolkata"
+    },
+    {
+      "id": "dhaka",
+      "name": "Dhaka",
+      "country": "Bangladesh",
+      "region": "Asia",
+      "tagline": "The city of mosques and vibrant rickshaws on the Buriganga",
+      "population": 22000000,
+      "lat": 23.8103,
+      "lon": 90.4125,
+      "timezone": "Asia/Dhaka"
+    },
+    {
+      "id": "dubai",
+      "name": "Dubai",
+      "country": "United Arab Emirates",
+      "region": "Middle East",
+      "tagline": "An oasis of futuristic architecture, luxury, and desert dunes",
+      "population": 3500000,
+      "lat": 25.2048,
+      "lon": 55.2708,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "id": "doha",
+      "name": "Doha",
+      "country": "Qatar",
+      "region": "Middle East",
+      "tagline": "Gleaming Corniche, world-class art, and Arabian pearl heritage",
+      "population": 2382000,
+      "lat": 25.2854,
+      "lon": 51.531,
+      "timezone": "Asia/Qatar"
+    },
+    {
+      "id": "riyadh",
+      "name": "Riyadh",
+      "country": "Saudi Arabia",
+      "region": "Middle East",
+      "tagline": "Kingdom capital combining ancient Najd heritage with modern vision",
+      "population": 7676000,
+      "lat": 24.7136,
+      "lon": 46.6753,
+      "timezone": "Asia/Riyadh"
+    },
+    {
+      "id": "abu-dhabi",
+      "name": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "region": "Middle East",
+      "tagline": "Capital grandeur, Louvre Abu Dhabi, and Sheikh Zayed Mosque",
+      "population": 1540000,
+      "lat": 24.4539,
+      "lon": 54.3773,
+      "timezone": "Asia/Dubai"
+    },
+    {
+      "id": "london",
+      "name": "London",
+      "country": "United Kingdom",
+      "region": "Europe",
+      "tagline": "A historic metropolis with timeless charm",
+      "population": 8982000,
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "timezone": "Europe/London"
+    },
+    {
+      "id": "paris",
+      "name": "Paris",
+      "country": "France",
+      "region": "Europe",
+      "tagline": "The city of lights, art, and romantic avenues",
+      "population": 2161000,
+      "lat": 48.8566,
+      "lon": 2.3522,
+      "timezone": "Europe/Paris"
+    },
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "country": "Germany",
+      "region": "Europe",
+      "tagline": "A cultural hub of freedom, art, and rich history",
+      "population": 3645000,
+      "lat": 52.52,
+      "lon": 13.405,
+      "timezone": "Europe/Berlin"
+    },
+    {
+      "id": "rome",
+      "name": "Rome",
+      "country": "Italy",
+      "region": "Europe",
+      "tagline": "The eternal city filled with imperial wonders",
+      "population": 2873000,
+      "lat": 41.9028,
+      "lon": 12.4964,
+      "timezone": "Europe/Rome"
+    },
+    {
+      "id": "madrid",
+      "name": "Madrid",
+      "country": "Spain",
+      "region": "Europe",
+      "tagline": "Sunlit plazas, royal palaces, and master art museums",
+      "population": 3223000,
+      "lat": 40.4168,
+      "lon": -3.7038,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "id": "barcelona",
+      "name": "Barcelona",
+      "country": "Spain",
+      "region": "Europe",
+      "tagline": "Gaudí architecture, Mediterranean beaches, and Gothic quarters",
+      "population": 1620000,
+      "lat": 41.3879,
+      "lon": 2.1699,
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "id": "amsterdam",
+      "name": "Amsterdam",
+      "country": "Netherlands",
+      "region": "Europe",
+      "tagline": "Iconic canal rings, cycling culture, and golden age art",
+      "population": 821000,
+      "lat": 52.3676,
+      "lon": 4.9041,
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "id": "istanbul",
+      "name": "Istanbul",
+      "country": "Turkey",
+      "region": "Europe",
+      "tagline": "The legendary bridge between continents",
+      "population": 15460000,
+      "lat": 41.0082,
+      "lon": 28.9784,
+      "timezone": "Europe/Istanbul"
+    },
+    {
+      "id": "vienna",
+      "name": "Vienna",
+      "country": "Austria",
+      "region": "Europe",
+      "tagline": "City of classical music, imperial palaces, and coffee houses",
+      "population": 1930000,
+      "lat": 48.2082,
+      "lon": 16.3738,
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "id": "zurich",
+      "name": "Zurich",
+      "country": "Switzerland",
+      "region": "Europe",
+      "tagline": "Alpine lakeside elegance and global financial prestige",
+      "population": 402000,
+      "lat": 47.3769,
+      "lon": 8.5417,
+      "timezone": "Europe/Zurich"
+    },
+    {
+      "id": "new-york",
+      "name": "New York",
+      "country": "United States",
+      "region": "North America",
+      "tagline": "The vibrant city that never sleeps",
+      "population": 8336000,
+      "lat": 40.7128,
+      "lon": -74.006,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "los-angeles",
+      "name": "Los Angeles",
+      "country": "United States",
+      "region": "North America",
+      "tagline": "Hollywood glamour, palm tree boulevards, and Pacific sunsets",
+      "population": 3898000,
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "id": "chicago",
+      "name": "Chicago",
+      "country": "United States",
+      "region": "North America",
+      "tagline": "Architectural marvel on Lake Michigan, blues, and deep-dish",
+      "population": 2746000,
+      "lat": 41.8781,
+      "lon": -87.6298,
+      "timezone": "America/Chicago"
+    },
+    {
+      "id": "san-francisco",
+      "name": "San Francisco",
+      "country": "United States",
+      "region": "North America",
+      "tagline": "Golden Gate vistas, rolling cable cars, and tech bay breezes",
+      "population": 873000,
+      "lat": 37.7749,
+      "lon": -122.4194,
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "id": "toronto",
+      "name": "Toronto",
+      "country": "Canada",
+      "region": "North America",
+      "tagline": "A multicultural tapestry on the shores of Lake Ontario",
+      "population": 2930000,
+      "lat": 43.6532,
+      "lon": -79.3832,
+      "timezone": "America/Toronto"
+    },
+    {
+      "id": "vancouver",
+      "name": "Vancouver",
+      "country": "Canada",
+      "region": "North America",
+      "tagline": "Coastal seaport where snow-capped peaks meet the Pacific",
+      "population": 675000,
+      "lat": 49.2827,
+      "lon": -123.1207,
+      "timezone": "America/Vancouver"
+    },
+    {
+      "id": "rio-de-janeiro",
+      "name": "Rio de Janeiro",
+      "country": "Brazil",
+      "region": "South America",
+      "tagline": "Marvelous city of carnival rhythms and golden shores",
+      "population": 6748000,
+      "lat": -22.9068,
+      "lon": -43.1729,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "id": "buenos-aires",
+      "name": "Buenos Aires",
+      "country": "Argentina",
+      "region": "South America",
+      "tagline": "The Paris of South America, tango passion, and grand avenues",
+      "population": 3120000,
+      "lat": -34.6037,
+      "lon": -58.3816,
+      "timezone": "America/Argentina/Buenos_Aires"
+    },
+    {
+      "id": "santiago",
+      "name": "Santiago",
+      "country": "Chile",
+      "region": "South America",
+      "tagline": "Sophisticated valley metropolis framed by the soaring Andes",
+      "population": 6250000,
+      "lat": -33.4489,
+      "lon": -70.6693,
+      "timezone": "America/Santiago"
+    },
+    {
+      "id": "sydney",
+      "name": "Sydney",
+      "country": "Australia",
+      "region": "Oceania",
+      "tagline": "Iconic harbor vistas and sun-drenched beaches",
+      "population": 5312000,
+      "lat": -33.8688,
+      "lon": 151.2093,
+      "timezone": "Australia/Sydney"
+    },
+    {
+      "id": "melbourne",
+      "name": "Melbourne",
+      "country": "Australia",
+      "region": "Oceania",
+      "tagline": "Coffee laneways, live music culture, and world-class arts",
+      "population": 5078000,
+      "lat": -37.8136,
+      "lon": 144.9631,
+      "timezone": "Australia/Melbourne"
+    },
+    {
+      "id": "auckland",
+      "name": "Auckland",
+      "country": "New Zealand",
+      "region": "Oceania",
+      "tagline": "City of Sails surrounded by volcanic harbors and green bays",
+      "population": 1657000,
+      "lat": -36.8485,
+      "lon": 174.7633,
+      "timezone": "Pacific/Auckland"
+    },
+    {
+      "id": "cairo",
+      "name": "Cairo",
+      "country": "Egypt",
+      "region": "Africa",
+      "tagline": "The majestic cradle of ancient civilization",
+      "population": 9540000,
+      "lat": 30.0444,
+      "lon": 31.2357,
+      "timezone": "Africa/Cairo"
+    },
+    {
+      "id": "cape-town",
+      "name": "Cape Town",
+      "country": "South Africa",
+      "region": "Africa",
+      "tagline": "Where dramatic mountains meet two ocean currents",
+      "population": 4618000,
+      "lat": -33.9249,
+      "lon": 18.4241,
+      "timezone": "Africa/Johannesburg"
+    },
+    {
+      "id": "nairobi",
+      "name": "Nairobi",
+      "country": "Kenya",
+      "region": "Africa",
+      "tagline": "Green city in the sun where modern skyline borders safari wilderness",
+      "population": 4397000,
+      "lat": -1.2921,
+      "lon": 36.8219,
+      "timezone": "Africa/Nairobi"
+    }
+  ],
+  "cityPlaces": [
+    {
+      "id": "khi-1",
+      "cityId": "karachi",
+      "name": "Clifton Beach & Sea View",
+      "type": "beach"
+    },
+    {
+      "id": "khi-2",
+      "cityId": "karachi",
+      "name": "Mazar-e-Quaid (Jinnah Mausoleum)",
+      "type": "landmark"
+    },
+    {
+      "id": "khi-3",
+      "cityId": "karachi",
+      "name": "Mohatta Palace Museum",
+      "type": "landmark"
+    },
+    {
+      "id": "lhr-1",
+      "cityId": "lahore",
+      "name": "Badshahi Mosque",
+      "type": "landmark"
+    },
+    {
+      "id": "lhr-2",
+      "cityId": "lahore",
+      "name": "Lahore Fort (Shahi Qila)",
+      "type": "landmark"
+    },
+    {
+      "id": "lhr-3",
+      "cityId": "lahore",
+      "name": "Shalimar Gardens",
+      "type": "landmark"
+    },
+    {
+      "id": "isb-1",
+      "cityId": "islamabad",
+      "name": "Faisal Mosque",
+      "type": "landmark"
+    },
+    {
+      "id": "isb-2",
+      "cityId": "islamabad",
+      "name": "Daman-e-Koh Margalla Hills",
+      "type": "landmark"
+    },
+    {
+      "id": "isb-3",
+      "cityId": "islamabad",
+      "name": "Pakistan Monument",
+      "type": "landmark"
+    },
+    {
+      "id": "rwp-1",
+      "cityId": "rawalpindi",
+      "name": "Ayub National Park",
+      "type": "landmark"
+    },
+    {
+      "id": "rwp-2",
+      "cityId": "rawalpindi",
+      "name": "Raja Bazaar Old Quarter",
+      "type": "landmark"
+    },
+    {
+      "id": "pew-1",
+      "cityId": "peshawar",
+      "name": "Bala Hissar Fort",
+      "type": "landmark"
+    },
+    {
+      "id": "pew-2",
+      "cityId": "peshawar",
+      "name": "Qissa Khwani Bazaar",
+      "type": "landmark"
+    },
+    {
+      "id": "mux-1",
+      "cityId": "multan",
+      "name": "Tomb of Shah Rukn-e-Alam",
+      "type": "landmark"
+    },
+    {
+      "id": "mux-2",
+      "cityId": "multan",
+      "name": "Multan Qila Kohna",
+      "type": "landmark"
+    },
+    {
+      "id": "fsd-1",
+      "cityId": "faisalabad",
+      "name": "Clock Tower (Ghanta Ghar)",
+      "type": "landmark"
+    },
+    {
+      "id": "fsd-2",
+      "cityId": "faisalabad",
+      "name": "D Ground Boulevard",
+      "type": "landmark"
+    },
+    {
+      "id": "qta-1",
+      "cityId": "quetta",
+      "name": "Hanna Lake",
+      "type": "beach"
+    },
+    {
+      "id": "qta-2",
+      "cityId": "quetta",
+      "name": "Quetta Chiltan Viewpoint",
+      "type": "landmark"
+    },
+    {
+      "id": "skt-1",
+      "cityId": "sialkot",
+      "name": "Iqbal Manzil",
+      "type": "landmark"
+    },
+    {
+      "id": "skt-2",
+      "cityId": "sialkot",
+      "name": "Sialkot Clock Tower",
+      "type": "landmark"
+    },
+    {
+      "id": "gwd-1",
+      "cityId": "gwadar",
+      "name": "Gwadar Hammerhead Point",
+      "type": "landmark"
+    },
+    {
+      "id": "gwd-2",
+      "cityId": "gwadar",
+      "name": "Omani Promenade Beach",
+      "type": "beach"
+    },
+    {
+      "id": "mrr-1",
+      "cityId": "murree",
+      "name": "Mall Road Murree",
+      "type": "landmark"
+    },
+    {
+      "id": "mrr-2",
+      "cityId": "murree",
+      "name": "Patriata Chairlift & Forest",
+      "type": "landmark"
+    },
+    {
+      "id": "glt-1",
+      "cityId": "gilgit",
+      "name": "Karakoram Highway Overlook",
+      "type": "landmark"
+    },
+    {
+      "id": "glt-2",
+      "cityId": "gilgit",
+      "name": "Naltar Valley Lakes",
+      "type": "landmark"
+    },
+    {
+      "id": "lon-1",
+      "cityId": "london",
+      "name": "Tower Bridge",
+      "type": "landmark"
+    },
+    {
+      "id": "lon-2",
+      "cityId": "london",
+      "name": "British Museum",
+      "type": "landmark"
+    },
+    {
+      "id": "par-1",
+      "cityId": "paris",
+      "name": "Eiffel Tower",
+      "type": "landmark"
+    },
+    {
+      "id": "par-2",
+      "cityId": "paris",
+      "name": "Louvre Museum",
+      "type": "landmark"
+    },
+    {
+      "id": "tok-1",
+      "cityId": "tokyo",
+      "name": "Senso-ji Temple",
+      "type": "landmark"
+    },
+    {
+      "id": "tok-2",
+      "cityId": "tokyo",
+      "name": "Shibuya Crossing",
+      "type": "landmark"
+    },
+    {
+      "id": "nyc-1",
+      "cityId": "new-york",
+      "name": "Central Park",
+      "type": "landmark"
+    },
+    {
+      "id": "nyc-2",
+      "cityId": "new-york",
+      "name": "Empire State Building",
+      "type": "landmark"
+    },
+    {
+      "id": "dxb-1",
+      "cityId": "dubai",
+      "name": "Burj Khalifa",
+      "type": "landmark"
+    },
+    {
+      "id": "dxb-2",
+      "cityId": "dubai",
+      "name": "Jumeirah Beach",
+      "type": "beach"
+    },
+    {
+      "id": "syd-1",
+      "cityId": "sydney",
+      "name": "Sydney Opera House",
+      "type": "landmark"
+    },
+    {
+      "id": "syd-2",
+      "cityId": "sydney",
+      "name": "Bondi Beach",
+      "type": "beach"
+    },
+    {
+      "id": "sin-1",
+      "cityId": "singapore",
+      "name": "Marina Bay Sands",
+      "type": "landmark"
+    },
+    {
+      "id": "sin-2",
+      "cityId": "singapore",
+      "name": "Gardens by the Bay",
+      "type": "landmark"
+    },
+    {
+      "id": "cai-1",
+      "cityId": "cairo",
+      "name": "Pyramids of Giza",
+      "type": "landmark"
+    },
+    {
+      "id": "cai-2",
+      "cityId": "cairo",
+      "name": "Egyptian Museum",
+      "type": "landmark"
+    },
+    {
+      "id": "rio-1",
+      "cityId": "rio-de-janeiro",
+      "name": "Christ the Redeemer",
+      "type": "landmark"
+    },
+    {
+      "id": "rio-2",
+      "cityId": "rio-de-janeiro",
+      "name": "Copacabana Beach",
+      "type": "beach"
+    },
+    {
+      "id": "ber-1",
+      "cityId": "berlin",
+      "name": "Brandenburg Gate",
+      "type": "landmark"
+    },
+    {
+      "id": "tor-1",
+      "cityId": "toronto",
+      "name": "CN Tower",
+      "type": "landmark"
+    },
+    {
+      "id": "rom-1",
+      "cityId": "rome",
+      "name": "Colosseum",
+      "type": "landmark"
+    },
+    {
+      "id": "ist-1",
+      "cityId": "istanbul",
+      "name": "Hagia Sophia",
+      "type": "landmark"
+    },
+    {
+      "id": "bkk-1",
+      "cityId": "bangkok",
+      "name": "Grand Palace",
+      "type": "landmark"
+    },
+    {
+      "id": "kl-1",
+      "cityId": "kuala-lumpur",
+      "name": "Petronas Twin Towers",
+      "type": "landmark"
+    },
+    {
+      "id": "seo-1",
+      "cityId": "seoul",
+      "name": "Gyeongbokgung Palace",
+      "type": "landmark"
+    },
+    {
+      "id": "doh-1",
+      "cityId": "doha",
+      "name": "Souq Waqif",
+      "type": "landmark"
+    },
+    {
+      "id": "cpt-1",
+      "cityId": "cape-town",
+      "name": "Table Mountain",
+      "type": "landmark"
+    },
+    {
+      "id": "cpt-2",
+      "cityId": "cape-town",
+      "name": "Camps Bay Beach",
+      "type": "beach"
+    }
+  ],
+  "favorites": [
+    {
+      "id": 1,
+      "userId": 1,
+      "cityId": "paris",
+      "note": "Weekend getaway & Louvre Museum",
+      "createdAt": "2026-11-18T12:46:09.650Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "cityId": "tokyo",
+      "note": "Spring cherry blossoms & Shibuya",
+      "createdAt": "2026-11-18T12:46:09.651Z"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "cityId": "new-york",
+      "note": "Broadway shows & Central Park",
+      "createdAt": "2026-11-18T12:46:09.651Z"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "cityId": "sydney",
+      "note": "Bondi beach & coastal walks",
+      "createdAt": "2026-11-18T12:46:09.651Z"
+    }
+  ]
+}
