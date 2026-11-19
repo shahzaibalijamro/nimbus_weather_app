@@ -50,8 +50,11 @@ class ApiController {
         headers: headers,
         body: jsonEncode(body),
       );
+      print(apiURL);
       int statusCode = request.statusCode;
       String response = request.body;
+      print(statusCode);
+      print(response);
 
       // save token if login
       if (isLogin && (statusCode == 200 || statusCode == 201)) {
@@ -60,6 +63,7 @@ class ApiController {
       }
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
+      print(e);
       // if(status)
       return Response(message: 'Something went wrong!');
     }
@@ -107,6 +111,7 @@ class ApiController {
     bool requiresToken = false,
     Map<String, String>? params,
   }) async {
+    print('ok');
     if (!await checkIfOnline()) {
       return Response(statusCode: 700, message: 'No Internet!');
     }
@@ -131,11 +136,13 @@ class ApiController {
       if (params != null) {
         apiURL = apiURL.replace(queryParameters: params);
       }
+      print(apiURL);
       final request = await http.get(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
+      print(e);
       return Response(message: 'Something went wrong!');
     }
   }

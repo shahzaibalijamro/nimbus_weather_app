@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:untitled/constants/colors.dart';
 import 'package:untitled/controllers/auth_controller.dart';
 import 'package:untitled/controllers/favorites_controller.dart';
@@ -463,6 +464,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    favController.fetchFavorites();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -710,12 +717,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           const SizedBox(height: 12),
                           Obx(
-                            () => Text(
-                              '${favController.favorites.length}',
-                              style: GoogleFonts.sora(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.primaryText,
+                            () => Skeletonizer(
+                              enabled: favController.isFavoritesLoading.value,
+                              child: Text(
+                                favController.isFavoritesLoading.value
+                                    ? '4'
+                                    : '${favController.favorites.length}',
+                                style: GoogleFonts.sora(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.primaryText,
+                                ),
                               ),
                             ),
                           ),

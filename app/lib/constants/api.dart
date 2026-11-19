@@ -3,7 +3,7 @@ class ApiEndpoints {
   // Automatically detects Android emulator (10.0.2.2) vs Windows/Web/Desktop (localhost).
   // Replace with your deployed URL (e.g. Render/Railway) whenever ready!
   static String get _baseURL {
-    return 'http://192.168.1.41:3000/api/v1';
+    return 'https://backend-ashy-seven.vercel.app/api/v1';
   }
 
   static String get login => '$_baseURL/auth/login';
