@@ -7,6 +7,7 @@ import 'package:untitled/controllers/auth_controller.dart';
 import 'package:untitled/controllers/favorites_controller.dart';
 import 'package:untitled/controllers/main_controller.dart';
 import 'package:untitled/controllers/settings_controller.dart';
+import 'package:untitled/widgets/favorites/log_out_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,10 +18,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final AuthController authController = Get.find<AuthController>();
-  final FavoritesController favController = Get.isRegistered<FavoritesController>()
+  final FavoritesController favController =
+      Get.isRegistered<FavoritesController>()
       ? Get.find<FavoritesController>()
       : Get.put(FavoritesController());
-  final SettingsController settingsController = Get.isRegistered<SettingsController>()
+  final SettingsController settingsController =
+      Get.isRegistered<SettingsController>()
       ? Get.find<SettingsController>()
       : Get.put(SettingsController(), permanent: true);
 
@@ -36,15 +39,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _formatJoinDate(DateTime? date) {
     if (date == null) return 'Recently';
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return 'Joined ${months[date.month - 1]} ${date.year}';
   }
 
   void _openEditProfileSheet(BuildContext context) {
-    final nameController = TextEditingController(text: authController.user.value?.name ?? '');
-    final emailController = TextEditingController(text: authController.user.value?.email ?? '');
+    final nameController = TextEditingController(
+      text: authController.user.value?.name ?? '',
+    );
+    final emailController = TextEditingController(
+      text: authController.user.value?.email ?? '',
+    );
     final currentPasswordController = TextEditingController();
     final newPasswordController = TextEditingController();
     final RxBool showPasswordFields = false.obs;
@@ -100,7 +117,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: AppColors.backgroundColor,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: const Icon(PhosphorIconsBold.x, size: 18, color: AppColors.secondaryText),
+                      child: const Icon(
+                        PhosphorIconsBold.x,
+                        size: 18,
+                        color: AppColors.secondaryText,
+                      ),
                     ),
                   ),
                 ],
@@ -120,19 +141,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
               TextField(
                 controller: nameController,
                 cursorColor: AppColors.blue,
-                style: GoogleFonts.dmSans(fontSize: 15, color: AppColors.primaryText),
+                style: GoogleFonts.dmSans(
+                  fontSize: 15,
+                  color: AppColors.primaryText,
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.backgroundColor,
-                  prefixIcon: const Icon(PhosphorIconsBold.user, size: 18, color: AppColors.secondaryText),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  prefixIcon: const Icon(
+                    PhosphorIconsBold.user,
+                    size: 18,
+                    color: AppColors.secondaryText,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(color: AppColors.borderGrey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: const BorderSide(color: AppColors.blue, width: 1.5),
+                    borderSide: const BorderSide(
+                      color: AppColors.blue,
+                      width: 1.5,
+                    ),
                   ),
                 ),
               ),
@@ -152,53 +186,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 cursorColor: AppColors.blue,
-                style: GoogleFonts.dmSans(fontSize: 15, color: AppColors.primaryText),
+                style: GoogleFonts.dmSans(
+                  fontSize: 15,
+                  color: AppColors.primaryText,
+                ),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: AppColors.backgroundColor,
-                  prefixIcon: const Icon(PhosphorIconsBold.envelope, size: 18, color: AppColors.secondaryText),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  prefixIcon: const Icon(
+                    PhosphorIconsBold.envelope,
+                    size: 18,
+                    color: AppColors.secondaryText,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(color: AppColors.borderGrey),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
-                    borderSide: const BorderSide(color: AppColors.blue, width: 1.5),
+                    borderSide: const BorderSide(
+                      color: AppColors.blue,
+                      width: 1.5,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 14),
 
               // Change Password Toggle
-              Obx(() => InkWell(
-                    onTap: () {
-                      showPasswordFields.value = !showPasswordFields.value;
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: Row(
-                        children: [
-                          Icon(
-                            showPasswordFields.value
-                                ? PhosphorIconsBold.caretDown
-                                : PhosphorIconsBold.caretRight,
-                            size: 16,
+              Obx(
+                () => InkWell(
+                  onTap: () {
+                    showPasswordFields.value = !showPasswordFields.value;
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      children: [
+                        Icon(
+                          showPasswordFields.value
+                              ? PhosphorIconsBold.caretDown
+                              : PhosphorIconsBold.caretRight,
+                          size: 16,
+                          color: AppColors.blue,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          showPasswordFields.value
+                              ? 'Hide password change'
+                              : 'Change password (optional)',
+                          style: GoogleFonts.dmSans(
                             color: AppColors.blue,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
-                          const SizedBox(width: 6),
-                          Text(
-                            showPasswordFields.value ? 'Hide password change' : 'Change password (optional)',
-                            style: GoogleFonts.dmSans(
-                              color: AppColors.blue,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )),
+                  ),
+                ),
+              ),
 
               // Optional Password Fields
               Obx(() {
@@ -224,16 +275,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         filled: true,
                         fillColor: AppColors.backgroundColor,
                         hintText: 'Enter current password',
-                        hintStyle: GoogleFonts.dmSans(color: AppColors.mutedText, fontSize: 14),
-                        prefixIcon: const Icon(PhosphorIconsBold.lockKey, size: 18, color: AppColors.secondaryText),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        hintStyle: GoogleFonts.dmSans(
+                          color: AppColors.mutedText,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: const Icon(
+                          PhosphorIconsBold.lockKey,
+                          size: 18,
+                          color: AppColors.secondaryText,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.borderGrey),
+                          borderSide: const BorderSide(
+                            color: AppColors.borderGrey,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.blue, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.blue,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                     ),
@@ -255,26 +321,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         filled: true,
                         fillColor: AppColors.backgroundColor,
                         hintText: 'Minimum 6 characters',
-                        hintStyle: GoogleFonts.dmSans(color: AppColors.mutedText, fontSize: 14),
-                        prefixIcon: const Icon(PhosphorIconsBold.lock, size: 18, color: AppColors.secondaryText),
+                        hintStyle: GoogleFonts.dmSans(
+                          color: AppColors.mutedText,
+                          fontSize: 14,
+                        ),
+                        prefixIcon: const Icon(
+                          PhosphorIconsBold.lock,
+                          size: 18,
+                          color: AppColors.secondaryText,
+                        ),
                         suffixIcon: InkWell(
                           onTap: () {
-                            isNewPasswordObscured.value = !isNewPasswordObscured.value;
+                            isNewPasswordObscured.value =
+                                !isNewPasswordObscured.value;
                           },
                           child: Icon(
-                            isNewPasswordObscured.value ? Icons.visibility : Icons.visibility_off,
+                            isNewPasswordObscured.value
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: AppColors.secondaryText,
                             size: 18,
                           ),
                         ),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.borderGrey),
+                          borderSide: const BorderSide(
+                            color: AppColors.borderGrey,
+                          ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(14),
-                          borderSide: const BorderSide(color: AppColors.blue, width: 1.5),
+                          borderSide: const BorderSide(
+                            color: AppColors.blue,
+                            width: 1.5,
+                          ),
                         ),
                       ),
                     ),
@@ -291,7 +375,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Get.rawSnackbar(
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: AppColors.errorBg,
-                      messageText: Text('Name cannot be empty', style: GoogleFonts.dmSans(color: AppColors.errorText)),
+                      messageText: Text(
+                        'Name cannot be empty',
+                        style: GoogleFonts.dmSans(color: AppColors.errorText),
+                      ),
                       margin: const EdgeInsets.all(12),
                       borderRadius: 12,
                     );
@@ -301,7 +388,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Get.rawSnackbar(
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: AppColors.errorBg,
-                      messageText: Text('Email cannot be empty', style: GoogleFonts.dmSans(color: AppColors.errorText)),
+                      messageText: Text(
+                        'Email cannot be empty',
+                        style: GoogleFonts.dmSans(color: AppColors.errorText),
+                      ),
                       margin: const EdgeInsets.all(12),
                       borderRadius: 12,
                     );
@@ -311,8 +401,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   final success = await authController.updateProfile(
                     name: nameController.text.trim(),
                     email: emailController.text.trim(),
-                    currentPassword: currentPasswordController.text.isNotEmpty ? currentPasswordController.text : null,
-                    newPassword: newPasswordController.text.isNotEmpty ? newPasswordController.text : null,
+                    currentPassword: currentPasswordController.text.isNotEmpty
+                        ? currentPasswordController.text
+                        : null,
+                    newPassword: newPasswordController.text.isNotEmpty
+                        ? newPasswordController.text
+                        : null,
                   );
 
                   if (success) {
@@ -320,7 +414,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Get.rawSnackbar(
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: AppColors.blue,
-                      messageText: Text('Profile updated successfully!', style: GoogleFonts.dmSans(color: AppColors.white)),
+                      messageText: Text(
+                        'Profile updated successfully!',
+                        style: GoogleFonts.dmSans(color: AppColors.white),
+                      ),
                       margin: const EdgeInsets.all(12),
                       borderRadius: 12,
                     );
@@ -335,20 +432,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Center(
-                    child: Obx(() => authController.isUpdatingProfile.value
-                        ? const SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                          )
-                        : Text(
-                            'Save Changes',
-                            style: GoogleFonts.dmSans(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.white,
+                    child: Obx(
+                      () => authController.isUpdatingProfile.value
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(
+                              'Save Changes',
+                              style: GoogleFonts.dmSans(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.white,
+                              ),
                             ),
-                          )),
+                    ),
                   ),
                 ),
               ),
@@ -357,47 +459,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       isScrollControlled: true,
-    );
-  }
-
-  void _confirmLogout(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: AppColors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(
-          'Log Out',
-          style: GoogleFonts.sora(fontWeight: FontWeight.w700, color: AppColors.primaryText),
-        ),
-        content: Text(
-          'Are you sure you want to log out of your Nimbus account?',
-          style: GoogleFonts.dmSans(color: AppColors.secondaryText, fontSize: 14),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              'Cancel',
-              style: GoogleFonts.dmSans(fontWeight: FontWeight.w600, color: AppColors.secondaryText),
-            ),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.errorText,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-              authController.logout();
-            },
-            child: Text(
-              'Log Out',
-              style: GoogleFonts.dmSans(fontWeight: FontWeight.w700, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -512,7 +573,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               const SizedBox(height: 6),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 3,
+                                ),
                                 decoration: BoxDecoration(
                                   color: AppColors.rainBg,
                                   borderRadius: BorderRadius.circular(8),
@@ -548,7 +612,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Icon(PhosphorIconsBold.pencilSimple, size: 16, color: AppColors.blue),
+                              const Icon(
+                                PhosphorIconsBold.pencilSimple,
+                                size: 16,
+                                color: AppColors.blue,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 'Edit Profile',
@@ -566,7 +634,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 14),
                       Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 12,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.backgroundColor,
                           borderRadius: BorderRadius.circular(12),
@@ -575,7 +646,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(PhosphorIconsBold.shieldCheck, size: 16, color: AppColors.secondaryText),
+                            const Icon(
+                              PhosphorIconsBold.shieldCheck,
+                              size: 16,
+                              color: AppColors.secondaryText,
+                            ),
                             const SizedBox(width: 6),
                             Text(
                               'Demo Account (Read-Only)',
@@ -603,7 +678,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: InkWell(
                     onTap: () {
                       if (Get.isRegistered<MainController>()) {
-                        Get.find<MainController>().switchScreens(1); // switch to Favorites tab
+                        Get.find<MainController>().switchScreens(
+                          1,
+                        ); // switch to Favorites tab
                       }
                     },
                     borderRadius: BorderRadius.circular(20),
@@ -612,7 +689,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: AppColors.borderGrey.withValues(alpha: 0.7)),
+                        border: Border.all(
+                          color: AppColors.borderGrey.withValues(alpha: 0.7),
+                        ),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -623,17 +702,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               color: AppColors.errorBg,
                               borderRadius: BorderRadius.circular(12),
                             ),
-                            child: const Icon(PhosphorIconsFill.heart, size: 18, color: AppColors.errorText),
+                            child: const Icon(
+                              PhosphorIconsFill.heart,
+                              size: 18,
+                              color: AppColors.errorText,
+                            ),
                           ),
                           const SizedBox(height: 12),
-                          Obx(() => Text(
-                                '${favController.favorites.length}',
-                                style: GoogleFonts.sora(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.primaryText,
-                                ),
-                              )),
+                          Obx(
+                            () => Text(
+                              '${favController.favorites.length}',
+                              style: GoogleFonts.sora(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primaryText,
+                              ),
+                            ),
+                          ),
                           Text(
                             'Saved Cities',
                             style: GoogleFonts.dmSans(
@@ -659,7 +744,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: AppColors.borderGrey.withValues(alpha: 0.7)),
+                          border: Border.all(
+                            color: AppColors.borderGrey.withValues(alpha: 0.7),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -670,7 +757,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: AppColors.sunBg,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(PhosphorIconsBold.thermometer, size: 18, color: Color(0xFFB54708)),
+                              child: const Icon(
+                                PhosphorIconsBold.thermometer,
+                                size: 18,
+                                color: Color(0xFFB54708),
+                              ),
                             ),
                             const SizedBox(height: 12),
                             Text(
@@ -706,7 +797,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.borderGrey.withValues(alpha: 0.7)),
+                border: Border.all(
+                  color: AppColors.borderGrey.withValues(alpha: 0.7),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -763,19 +856,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.borderGrey.withValues(alpha: 0.7)),
+                border: Border.all(
+                  color: AppColors.borderGrey.withValues(alpha: 0.7),
+                ),
               ),
               child: Column(
                 children: [
                   // Units toggle item
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            const Icon(PhosphorIconsBold.thermometer, size: 20, color: AppColors.blue),
+                            const Icon(
+                              PhosphorIconsBold.thermometer,
+                              size: 20,
+                              color: AppColors.blue,
+                            ),
                             const SizedBox(width: 12),
                             Text(
                               'Temperature Unit',
@@ -799,12 +901,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Row(
                               children: [
                                 InkWell(
-                                  onTap: () => settingsController.setFahrenheit(false),
+                                  onTap: () =>
+                                      settingsController.setFahrenheit(false),
                                   borderRadius: BorderRadius.circular(9),
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: !isFahr ? AppColors.blue : Colors.transparent,
+                                      color: !isFahr
+                                          ? AppColors.blue
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(9),
                                     ),
                                     child: Text(
@@ -812,18 +920,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       style: GoogleFonts.dmSans(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w700,
-                                        color: !isFahr ? Colors.white : AppColors.secondaryText,
+                                        color: !isFahr
+                                            ? Colors.white
+                                            : AppColors.secondaryText,
                                       ),
                                     ),
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () => settingsController.setFahrenheit(true),
+                                  onTap: () =>
+                                      settingsController.setFahrenheit(true),
                                   borderRadius: BorderRadius.circular(9),
                                   child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
                                     decoration: BoxDecoration(
-                                      color: isFahr ? AppColors.blue : Colors.transparent,
+                                      color: isFahr
+                                          ? AppColors.blue
+                                          : Colors.transparent,
                                       borderRadius: BorderRadius.circular(9),
                                     ),
                                     child: Text(
@@ -831,7 +947,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       style: GoogleFonts.dmSans(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w700,
-                                        color: isFahr ? Colors.white : AppColors.secondaryText,
+                                        color: isFahr
+                                            ? Colors.white
+                                            : AppColors.secondaryText,
                                       ),
                                     ),
                                   ),
@@ -847,13 +965,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   // Data Source
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            const Icon(PhosphorIconsBold.database, size: 20, color: AppColors.blue),
+                            const Icon(
+                              PhosphorIconsBold.database,
+                              size: 20,
+                              color: AppColors.blue,
+                            ),
                             const SizedBox(width: 12),
                             Text(
                               'Weather Source',
@@ -880,13 +1005,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   // App Version
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            const Icon(PhosphorIconsBold.info, size: 20, color: AppColors.blue),
+                            const Icon(
+                              PhosphorIconsBold.info,
+                              size: 20,
+                              color: AppColors.blue,
+                            ),
                             const SizedBox(width: 12),
                             Text(
                               'Nimbus Version',
@@ -917,7 +1049,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
             // Log Out Button
             InkWell(
-              onTap: () => _confirmLogout(context),
+              onTap: () => showLogOutDialog(),
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 width: double.infinity,
@@ -925,12 +1057,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 decoration: BoxDecoration(
                   color: AppColors.errorBg,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.errorText.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: AppColors.errorText.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(PhosphorIconsBold.signOut, size: 18, color: AppColors.errorText),
+                    const Icon(
+                      PhosphorIconsBold.signOut,
+                      size: 18,
+                      color: AppColors.errorText,
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       'Log Out',

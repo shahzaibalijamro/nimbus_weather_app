@@ -14,7 +14,6 @@ class WeatherTile extends StatelessWidget {
   final City? city;
 
   Color iconBg(String iconLabel) {
-    print(iconLabel);
     if (iconLabel.contains('sun')) {
       return AppColors.sunBg;
     } else {

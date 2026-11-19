@@ -84,6 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             TextField(
+              textInputAction: TextInputAction.next,
               focusNode: fullNameFocusNode,
               onTapOutside: (event) => fullNameFocusNode.unfocus(),
               cursorColor: const Color(0xFF5A6B8C),
@@ -127,6 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
             TextField(
+              textInputAction: TextInputAction.next,
               focusNode: emailFocusNode,
               onTapOutside: (event) => emailFocusNode.unfocus(),
               cursorColor: const Color(0xFF5A6B8C),
@@ -171,6 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             Obx(
               () => TextField(
+                textInputAction: TextInputAction.done,
                 focusNode: passwordFocusNode,
                 onTapOutside: (event) => passwordFocusNode.unfocus(),
                 cursorColor: const Color(0xFF5A6B8C),

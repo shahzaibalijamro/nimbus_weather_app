@@ -16,7 +16,6 @@ class FavoriteTile extends StatelessWidget {
   final Favorite? favorite;
 
   Color iconBg(String iconLabel) {
-    print(iconLabel);
     if (iconLabel.contains('sun')) {
       return AppColors.sunBg;
     } else {
@@ -87,13 +86,18 @@ class FavoriteTile extends StatelessWidget {
                             Obx(() {
                               final settings = Get.find<SettingsController>();
                               return Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 6,
+                                  vertical: 2,
+                                ),
                                 decoration: BoxDecoration(
                                   color: AppColors.backgroundColor,
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Text(
-                                  settings.formatTempOnly(favorite!.city.weather.temperatureC),
+                                  settings.formatTempOnly(
+                                    favorite!.city.weather.temperatureC,
+                                  ),
                                   style: GoogleFonts.sora(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,

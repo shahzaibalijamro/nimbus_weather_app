@@ -23,7 +23,6 @@ class ApiController {
       await InternetAddress.lookup('google.com');
       return true;
     } catch (e) {
-      print('INTERNET ERROR, $e');
       return false;
     }
   }
@@ -53,18 +52,14 @@ class ApiController {
       );
       int statusCode = request.statusCode;
       String response = request.body;
-      print(statusCode);
-      print(response);
 
       // save token if login
       if (isLogin && (statusCode == 200 || statusCode == 201)) {
-        print('TOKEN CHALRAHA');
         String token = jsonDecode(response)['token'];
         await _saveToken(token);
       }
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
-      print(e);
       // if(status)
       return Response(message: 'Something went wrong!');
     }
@@ -95,19 +90,14 @@ class ApiController {
       );
       int statusCode = request.statusCode;
       String response = request.body;
-      print(statusCode);
-      print(response);
 
       // save token if login
       if (isLogin && (statusCode == 200 || statusCode == 201)) {
-        print('TOKEN CHALRAHA');
         String token = jsonDecode(response)['token'];
         await _saveToken(token);
       }
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
-      print(e);
-      // if(status)
       return Response(message: 'Something went wrong!');
     }
   }
@@ -129,8 +119,6 @@ class ApiController {
     } else {
       if (isSessionExpired()) {
         if (Get.isRegistered<MainController>()) {
-          print('I AM HERE');
-
           Get.find<MainController>().updateSessionExpiration(isExpired: true);
         }
         return Response(statusCode: 403);
@@ -141,16 +129,13 @@ class ApiController {
       Uri apiURL = Uri.parse(url);
 
       if (params != null) {
-        print(params);
         apiURL = apiURL.replace(queryParameters: params);
       }
-      print('URL === $apiURL');
       final request = await http.get(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
-      print(e);
       return Response(message: 'Something went wrong!');
     }
   }
@@ -164,13 +149,11 @@ class ApiController {
 
     try {
       Uri apiURL = Uri.parse(url);
-      print('URL === $apiURL');
       final request = await http.delete(apiURL, headers: headers);
       int statusCode = request.statusCode;
       String response = request.body;
       return Response(statusCode: statusCode, body: response);
     } catch (e) {
-      print(e);
       return Response(message: 'Something went wrong!');
     }
   }

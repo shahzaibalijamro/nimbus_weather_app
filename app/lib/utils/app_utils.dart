@@ -6,7 +6,6 @@ class AppUtils extends GetxController {
 
   Future<void> initPrefs() async {
     prefs = await SharedPreferences.getInstance();
-    print('PREFS INITIALIZED!');
   }
 
   String? getStringFromPrefs({required String key}) {

@@ -27,6 +27,13 @@
       "email": "fast@test.com",
       "passwordHash": "$2a$10$nQ/ZsC0fQ3jsE30CaYiOceT4C6jvHEeknDqg2UXQX3GmxvcQMhgIG",
       "createdAt": "2026-11-18T10:31:43.291Z"
+    },
+    {
+      "id": 5,
+      "name": "Shahzaib Ali",
+      "email": "shahzaibalijamro@gmail.com",
+      "passwordHash": "$2a$10$1s3rxpPR4D1rxkq3u20o0e5ooHWTB2p0dm7KdW3EHc3eJfuqNi5yy",
+      "createdAt": "2026-11-19T02:28:39.431Z"
     }
   ],
   "cities": [
@@ -974,6 +981,13 @@
       "cityId": "sydney",
       "note": "Bondi beach & coastal walks",
       "createdAt": "2026-11-18T12:46:09.651Z"
+    },
+    {
+      "id": 5,
+      "userId": 5,
+      "cityId": "karachi",
+      "note": "First City",
+      "createdAt": "2026-11-19T02:30:50.389Z"
     }
   ]
 }

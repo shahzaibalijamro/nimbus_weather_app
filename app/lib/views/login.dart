@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailFocusNode.unfocus();
     passwordFocusNode.unfocus();
@@ -115,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextField(
+              textInputAction: TextInputAction.next,
               focusNode: emailFocusNode,
               onTapOutside: (event) => emailFocusNode.unfocus(),
               cursorColor: const Color(0xFF5A6B8C),
@@ -160,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Obx(
               () => TextField(
+                textInputAction: TextInputAction.done,
                 focusNode: passwordFocusNode,
                 onTapOutside: (event) => passwordFocusNode.unfocus(),
                 cursorColor: const Color(0xFF5A6B8C),

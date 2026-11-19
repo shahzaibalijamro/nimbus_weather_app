@@ -59,6 +59,42 @@ class AuthController extends GetxController {
       Get.offAllNamed(AppRoutes.main);
     } else {
       errorMsg.value = response.message;
+      if (statusCode != null && statusCode == 700) {
+        Get.rawSnackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          backgroundColor: AppColors.errorBg,
+          borderRadius: 12,
+          messageText: Text(
+            'No internet!',
+            style: GoogleFonts.dmSans(
+              color: AppColors.errorText,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          barBlur: 50,
+          margin: const EdgeInsets.all(12),
+        );
+      }
+      if (statusCode != null && statusCode == 401) {
+        Get.rawSnackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          backgroundColor: AppColors.errorBg,
+          borderRadius: 12,
+          messageText: Text(
+            'Invalid credentials!',
+            style: GoogleFonts.dmSans(
+              color: AppColors.errorText,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          barBlur: 50,
+          margin: const EdgeInsets.all(12),
+        );
+      }
     }
     isLoading.value = false;
   }
@@ -100,6 +136,27 @@ class AuthController extends GetxController {
       Get.offAllNamed(AppRoutes.login);
     } else {
       errorMsg.value = response.message;
+      if (statusCode != null && statusCode == 409) {
+        Get.toNamed(AppRoutes.login);
+      }
+      if (statusCode != null && statusCode == 700) {
+        Get.rawSnackbar(
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 3),
+          backgroundColor: AppColors.errorBg,
+          borderRadius: 12,
+          messageText: Text(
+            'No internet!',
+            style: GoogleFonts.dmSans(
+              color: AppColors.errorText,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          barBlur: 50,
+          margin: const EdgeInsets.all(12),
+        );
+      }
     }
     isLoading.value = false;
   }
@@ -144,10 +201,7 @@ class AuthController extends GetxController {
     isUpdatingProfile.value = true;
     errorMsg.value = null;
 
-    Map<String, dynamic> body = {
-      'name': name.trim(),
-      'email': email.trim(),
-    };
+    Map<String, dynamic> body = {'name': name.trim(), 'email': email.trim()};
 
     if (newPassword != null && newPassword.trim().isNotEmpty) {
       body['currentPassword'] = currentPassword ?? '';
@@ -198,6 +252,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
+    isLoading.value = true;
     await utils.removeKeyFromPrefs(key: AppKeys.tokenKey);
     await utils.removeKeyFromPrefs(key: AppKeys.authenticatedAt);
     user.value = null;
@@ -206,5 +261,6 @@ class AuthController extends GetxController {
       Get.find<MainController>().updateSessionExpiration(isExpired: false);
     }
     Get.offAllNamed(AppRoutes.login);
+    isLoading.value = false;
   }
 }
