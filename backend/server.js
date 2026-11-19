@@ -54,11 +54,17 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal server error', error: err.message });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`===============================================`);
-  console.log(`  Nimbus Weather Backend is running!`);
-  console.log(`  Local URL:        http://localhost:${PORT}`);
-  console.log(`  Android Emulator: http://10.0.2.2:${PORT}`);
-  console.log(`  API Base:         http://localhost:${PORT}/api/v1`);
-  console.log(`===============================================`);
-});
+// Export Express app for Vercel
+module.exports = app;
+
+// Start the server only when running locally
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log('===============================================');
+    console.log('  Nimbus Weather Backend is running!');
+    console.log(`  Local URL:        http://localhost:${PORT}`);
+    console.log(`  Android Emulator: http://10.0.2.2:${PORT}`);
+    console.log(`  API Base:         http://localhost:${PORT}/api/v1`);
+    console.log('===============================================');
+  });
+}
