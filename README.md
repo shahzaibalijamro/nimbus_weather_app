@@ -1,145 +1,145 @@
-# Nimbus Weather ⛅
+# Nimbus Weather
 
 <p align="center">
-  <img src="app/assets/icons/cloud.png" alt="Nimbus Logo" width="90" height="90" />
+  <img src="app/assets/icons/cloud.png" alt="Nimbus Logo" width="80" height="80" />
 </p>
 
 <p align="center">
-  <strong>A modern, full-stack weather intelligence application engineered with Flutter, Node.js, and Supabase PostgreSQL.</strong>
+  <strong>A full-stack weather intelligence application built with Flutter, Node.js, Express, and Supabase PostgreSQL.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
-  <img src="https://img.shields.io/badge/Dart-3.x-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
-  <img src="https://img.shields.io/badge/GetX-State%20Management-8A2BE2?style=for-the-badge" alt="GetX" />
-  <img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Express.js-Backend-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
-  <img src="https://img.shields.io/badge/PostgreSQL-Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
-  <img src="https://img.shields.io/badge/Open--Meteo-Live%20Weather-FF6B6B?style=for-the-badge" alt="Open-Meteo" />
+  <img src="https://img.shields.io/badge/Flutter-3.x-02569B?style=flat-square&logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Dart-3.x-0175C2?style=flat-square&logo=dart&logoColor=white" alt="Dart" />
+  <img src="https://img.shields.io/badge/GetX-State%20Management-8A2BE2?style=flat-square" alt="GetX" />
+  <img src="https://img.shields.io/badge/Node.js-18+-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-Backend-000000?style=flat-square&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/PostgreSQL-Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Open--Meteo-Live%20API-FF6B6B?style=flat-square" alt="Open-Meteo" />
 </p>
 
 ---
 
-## 🌟 Overview
+## Overview
 
-**Nimbus Weather** is a production-grade, full-stack mobile application delivering real-time meteorological data, multi-day forecasts, and city exploration with an elegant, responsive interface. Designed with performance, clean separation of concerns, and recruiter-ready architecture in mind, Nimbus demonstrates end-to-end full-stack capabilities—from a reactive Flutter frontend to a custom Node.js/Express API layer backed by Supabase PostgreSQL and live weather aggregation.
+Nimbus Weather is a full-stack mobile application that provides real-time weather observations, multi-day forecasts, and global city discovery. 
+
+The project demonstrates an end-to-end architecture pairing a reactive Flutter client with a custom Node.js and Express microservice. Meteorological data is gathered through Open-Meteo and routed through a persistent Supabase PostgreSQL database with server-side caching.
 
 ---
 
-## 📱 App Showcase
+## Application Showcase
 
 <table align="center">
   <tr>
     <td align="center" width="33%">
       <img src="app/screenshots/explore_screen.png" alt="Explore Screen" width="260" /><br />
       <strong>Explore & Regional Weather</strong><br />
-      <em>Curated city feeds, dynamic condition highlights, and region-based discovery.</em>
+      <sub>Categorized cities, condition indicators, and region-based filtering.</sub>
     </td>
     <td align="center" width="33%">
       <img src="app/screenshots/search_city.png" alt="Search City" width="260" /><br />
-      <strong>Fast City Search</strong><br />
-      <em>Real-time global search with instant weather preview chips and city taglines.</em>
+      <strong>City Search</strong><br />
+      <sub>Debounced search with quick-access temperature and weather previews.</sub>
     </td>
     <td align="center" width="33%">
       <img src="app/screenshots/detailed_city.png" alt="Detailed City" width="260" /><br />
       <strong>Detailed Metrics & Forecast</strong><br />
-      <em>Hourly charts, 5-day forecasts, UV index, wind speed, and key landmarks.</em>
+      <sub>Hourly trends, 5-day forecasts, UV index, wind metrics, and local landmarks.</sub>
     </td>
   </tr>
   <tr>
     <td align="center" width="33%">
       <img src="app/screenshots/favorites_screen.png" alt="Favorites Screen" width="260" /><br />
       <strong>Persistent Favorites</strong><br />
-      <em>Saved cities dashboard with live weather telemetry and customized user notes.</em>
+      <sub>Saved locations synchronized to the cloud with user-attached notes.</sub>
     </td>
     <td align="center" width="33%">
       <img src="app/screenshots/add_favorites.png" alt="Add Favorites" width="260" /><br />
-      <strong>Interactive Note Taking</strong><br />
-      <em>Seamless modal bottom sheets to attach personal notes to saved cities.</em>
+      <strong>Personal Notes Management</strong><br />
+      <sub>Modal sheets allowing users to append and update custom notes per city.</sub>
     </td>
     <td align="center" width="33%">
       <img src="app/screenshots/profile_screen.png" alt="Profile Screen" width="260" /><br />
-      <strong>User Profile & Settings</strong><br />
-      <em>Account management, units & theme controls, and authenticated session state.</em>
+      <strong>User Profile & Account</strong><br />
+      <sub>Authentication state, user preference options, and session overview.</sub>
     </td>
   </tr>
   <tr>
     <td align="center" colspan="3">
       <img src="app/screenshots/edit_profile.png" alt="Edit Profile" width="260" /><br />
-      <strong>Profile Customization</strong><br />
-      <em>Secure profile edits, form validation, and instant state synchronization.</em>
+      <strong>Profile Settings</strong><br />
+      <sub>Inline user detail updates with validation and immediate client-side sync.</sub>
     </td>
   </tr>
 </table>
 
 ---
 
-## 🚀 Key Features
+## Features
 
-- **🌤️ Hyper-Local Weather & Forecasts**: Real-time temperature, condition mapping (WMO code translation), humidity, wind metrics, UV index, and 5-day daily forecasts.
-- **🔍 Intelligent Exploration**: Filter world cities across regions (Europe, Asia, Americas, etc.) with landmark points of interest.
-- **❤️ Cloud-Synchronized Favorites**: Save favorite destinations to Supabase with personalized user notes; changes reflect seamlessly across sessions.
-- **🔐 Secure Authentication**: Complete JWT-based auth flow (sign up, sign in, auto-login with encrypted local token persistence via `SharedPreferences`).
-- **✨ Fluid UI/UX**: Shimmer loading skeletons with `Skeletonizer`, clean typography using `Google Fonts (Poppins)`, and crisp iconography powered by `Phosphor Icons`.
+- **Live Meteorological Tracking**: Real-time conditions including temperature, humidity, wind velocity, UV index, surface pressure, and 5-day daily forecasts.
+- **Regional Discovery**: Filter and inspect metropolitan hubs grouped across Europe, Asia, the Americas, and other territories.
+- **Synchronized Favorites**: Save cities with custom notes to a persistent Supabase backend, keeping state consistent across devices and app relaunches.
+- **JWT Authentication**: Secure user registration, credential hashing, token generation, and persistent session recovery on startup.
+- **Optimized UI State**: Responsive layouts built with GetX reactive observables, skeleton loaders for asynchronous requests, and consistent typography.
 
 ---
 
-## 🛠️ Architecture & Engineering Highlights
+## Architecture & Engineering Highlights
 
 ```
 nimbus_weather_app/
-├── app/                  # Mobile Client (Flutter 3.x + GetX)
+├── app/                  # Flutter Mobile Client
 │   ├── lib/
-│   │   ├── constants/    # Design tokens, routes, colors & API configurations
-│   │   ├── controllers/  # Reactive GetX business logic (Auth, City, Favorites, etc.)
-│   │   ├── models/       # Strongly typed JSON serialization models
-│   │   ├── views/        # Clean UI screens (Explore, Details, Favorites, Profile)
-│   │   └── widgets/      # Reusable UI components & custom bottom sheets
-│   └── screenshots/      # High-resolution production app captures
+│   │   ├── constants/    # Design tokens, theme keys, route definitions, API constants
+│   │   ├── controllers/  # GetX controllers handling state, auth, and data fetching
+│   │   ├── models/       # Serialization models for cities, weather, and users
+│   │   ├── views/        # Page views (Explore, Details, Favorites, Profile)
+│   │   └── widgets/      # Shared modular UI components
+│   └── screenshots/      # Production application screenshots
 │
-└── backend/              # Custom Microservice API (Node.js + Express)
-    ├── db/               # PostgreSQL connection pooling with Supabase
-    ├── middleware/       # JWT bearer token verification & error handlers
-    ├── routes/           # REST endpoints for Auth, Cities, and Favorites
-    ├── services/         # Open-Meteo aggregation & in-memory caching engine
-    └── supabase_schema.sql # Relational database schema, indexes & seed data
+└── backend/              # Node.js + Express API
+    ├── db/               # PostgreSQL pool configuration with Supabase
+    ├── middleware/       # JWT verification and request validation
+    ├── routes/           # REST endpoints (/auth, /cities, /favorites)
+    ├── services/         # Open-Meteo client and in-memory TTL cache
+    └── supabase_schema.sql # Database DDL, relational constraints, and seed data
 ```
 
-### 1. Reactive State Management & Separation of Concerns (GetX)
-- Employs a decoupled **MVC / Clean Architecture** separating pure presentation widgets from controller business logic.
-- Utilizes GetX reactive observables (`Rx`, `Obx`) for minimal rebuild trees, snappy 60fps animations, and zero boilerplate.
-- Centralized dependency injection and navigation management without BuildContext coupling.
+### Reactive State Management & Separation of Concerns
+The client application adopts an MVC pattern powered by GetX. Controllers isolate business logic, API communication, and state updates from the view layer. By leveraging reactive observables (`Rx`, `Obx`), widgets only rebuild when their referenced data points change, minimizing unnecessary widget tree recalculations.
 
-### 2. High-Performance Node.js Weather Aggregator
-- **In-Memory TTL Caching**: Implements a 15-minute in-memory cache layer (`Map`-based) in `weather_service.js` to drastically reduce third-party API rate limits and deliver sub-millisecond response times for frequent queries.
-- **WMO Code Normalization**: Translates raw meteorological WMO codes from Open-Meteo into human-readable condition metadata and asset-ready icon mappings.
+### Backend Caching & Condition Normalization
+To prevent unnecessary external network calls and respect third-party rate limits, the Node.js backend implements an in-memory TTL cache (15-minute window) in `weather_service.js`. In addition, the service translates raw WMO meteorological codes from Open-Meteo into standardized condition schemas used by the client to render matching vector assets.
 
-### 3. Scalable Relational Database (Supabase / PostgreSQL)
-- Normalized relational schema supporting users, cities, landmarks (`city_places`), and user-specific favorites with notes.
-- Optimized query performance through compound foreign keys and B-Tree indexes on `user_id` and `region`.
-- Cascading deletes ensure referential integrity when users or cities are modified.
+### Relational Database Design
+Data persistence relies on PostgreSQL hosted on Supabase:
+- Relational tables for users, cities, regional landmarks (`city_places`), and favorites.
+- B-Tree indexes on high-frequency lookup columns (`favorites.user_id`, `cities.region`).
+- Foreign key constraints with cascading deletes ensure referential integrity when users remove saved records.
 
-### 4. Robust Security & Session Lifecycle
-- Password hashing utilizing industry-standard `bcryptjs` with salt rounds.
-- Stateless authentication with signed JSON Web Tokens (`jsonwebtoken`) and automated authorization verification middleware.
-- Client-side token storage and proactive session restoration on application boot.
+### Authentication & Token Security
+- Passwords are salted and hashed using `bcryptjs` prior to storage.
+- Stateless authentication is enforced using signed JSON Web Tokens (`jsonwebtoken`) inspected via Express middleware.
+- The mobile client securely persists tokens locally using `shared_preferences` and verifies validity on app initialization.
 
 ---
 
-## 💻 Tech Stack Summary
+## Tech Stack Summary
 
-| Layer | Technologies |
+| Component | Technology |
 |---|---|
-| **Frontend Framework** | [Flutter](https://flutter.dev) (Dart 3.x) |
-| **State Management** | [GetX](https://pub.dev/packages/get) |
-| **UI Components & Styling** | [Phosphor Icons](https://pub.dev/packages/phosphoricons_flutter), [Skeletonizer](https://pub.dev/packages/skeletonizer), [Google Fonts](https://pub.dev/packages/google_fonts) |
-| **Backend Runtime** | [Node.js](https://nodejs.org) & [Express.js](https://expressjs.com) |
-| **Database & ORM** | [Supabase](https://supabase.com) / [PostgreSQL](https://www.postgresql.org) (`pg` driver) |
-| **Authentication & Security** | JWT (JSON Web Tokens) & `bcryptjs` |
-| **External Weather API** | [Open-Meteo](https://open-meteo.com) |
+| Frontend | Flutter (Dart 3.x) |
+| State Management | GetX |
+| Backend | Node.js, Express.js |
+| Database | PostgreSQL (Supabase) |
+| Authentication | JSON Web Tokens (JWT), bcryptjs |
+| Data Source | Open-Meteo API |
+| UI Libraries | Skeletonizer, Google Fonts, Phosphor Icons |
 
 ---
 
 <p align="center">
-  Crafted with care to demonstrate production-grade full-stack engineering, performance, and attention to detail.
+  Nimbus Weather — Full-Stack Portfolio Project
 </p>
