@@ -5,30 +5,82 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
+const isProduction =
+  process.env.NODE_ENV === 'production' ||
+  process.env.VERCEL === '1';
+
 let pgPool = null;
 let isPostgresOnline = false;
 
-if (process.env.DATABASE_URL && process.env.DATABASE_URL.trim().length > 0) {
+const databaseUrl = process.env.DATABASE_URL;
+
+// Production must always have a real database connection configured.
+if (isProduction && !databaseUrl) {
+  throw new Error('[Database] DATABASE_URL is required in production.');
+}
+
+if (databaseUrl && databaseUrl.trim().length > 0) {
   const { Pool } = require('pg');
+
   pgPool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL.includes('localhost') ? false : { rejectUnauthorized: false },
+    connectionString: databaseUrl,
+
+    ssl: databaseUrl.includes('localhost')
+      ? false
+      : { rejectUnauthorized: false },
+
+    // Start small for serverless deployments.
+    max: 1,
+
+    idleTimeoutMillis: 10000,
     connectionTimeoutMillis: 10000,
   });
 
+  // Production must select PostgreSQL immediately.
+  // Don't wait for the asynchronous connection test.
+  isPostgresOnline = isProduction;
+
+  // Handle errors from idle PostgreSQL clients.
+  pgPool.on('error', (err) => {
+    console.error('[Database] PostgreSQL pool error:', err);
+  });
+
+  // Check connectivity for logging purposes.
   pgPool.query('SELECT 1')
     .then(() => {
       isPostgresOnline = true;
       console.log('[Database] Connected to Supabase PostgreSQL successfully!');
     })
-    .catch(err => {
-      isPostgresOnline = false;
-      console.warn(`[Database] Warning: Cannot reach Supabase directly: ${err.message}`);
-      console.warn('[Database] Note: db.[ref].supabase.co is IPv6-only. Use the Supabase Connection Pooler URL for IPv4.');
-      console.warn('[Database] Seamlessly using local persistent storage so requests are instant!');
+    .catch((err) => {
+      console.error(
+        '[Database] PostgreSQL connection check failed:',
+        err.message
+      );
+
+      // Local JSON fallback is allowed only during development.
+      if (!isProduction) {
+        isPostgresOnline = false;
+        console.warn('[Database] Using local JSON storage in development.');
+      }
     });
+
 } else {
   console.log('[Database] Using local persistent JSON database');
+}
+
+// PostgreSQL errors must never silently fall back in production.
+function handlePostgresError(err) {
+  if (isProduction) {
+    console.error('[Database] PostgreSQL query failed:', err.message);
+    throw err;
+  }
+
+  isPostgresOnline = false;
+
+  console.warn(
+    '[Database] PostgreSQL query failed, falling back to local storage:',
+    err.message
+  );
 }
 
 // Local persistent file path
@@ -229,7 +281,9 @@ function saveLocalDb() {
   }
 }
 
-initLocalDb();
+if (!isProduction) {
+  initLocalDb();
+}
 
 // ========================================================
 // Database Access Methods
@@ -248,9 +302,9 @@ async function getUserByEmail(email) {
         passwordHash: r.password_hash,
         createdAt: r.created_at,
       };
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const u = localDb.users.find(u => u.email.toLowerCase() === email.toLowerCase());
@@ -271,9 +325,9 @@ async function getUserById(id) {
         passwordHash: r.password_hash,
         createdAt: r.created_at,
       };
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const u = localDb.users.find(u => u.id === numId);
@@ -297,9 +351,9 @@ async function createUser({ name, email, password }) {
         email: r.email,
         createdAt: r.created_at,
       };
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const nextId = localDb.users.length ? Math.max(...localDb.users.map(u => u.id)) + 1 : 1;
@@ -345,9 +399,9 @@ async function updateUser(id, { name, email, password }) {
         email: r.email,
         createdAt: r.created_at,
       };
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const user = localDb.users.find(u => u.id === numId);
@@ -372,9 +426,9 @@ async function getRegions() {
     try {
       const res = await pgPool.query('SELECT region AS name, COUNT(*)::int AS count FROM public.cities GROUP BY region ORDER BY region');
       return res.rows;
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const regionCounts = {};
@@ -415,13 +469,13 @@ async function getCities({ region, search, page = 1, limit = 8 }) {
         lon: Number(r.lon),
         timezone: r.timezone,
       }));
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
-  if (!allCities.length) {
-    allCities = localDb.cities.filter(c => {
+ if (!isPostgresOnline) {
+  allCities = localDb.cities.filter(c => {
       if (region && region !== 'All' && c.region !== region) return false;
       if (search && search.trim()) {
         const q = search.trim().toLowerCase();
@@ -469,9 +523,9 @@ async function getCityById(id) {
           timezone: r.timezone,
         };
       }
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const c = localDb.cities.find(c => c.id.toLowerCase() === id.toLowerCase());
@@ -483,9 +537,9 @@ async function getCityPlaces(cityId) {
     try {
       const res = await pgPool.query('SELECT * FROM public.city_places WHERE city_id = $1', [cityId]);
       return res.rows.map(r => ({ id: r.id, name: r.name, type: r.type }));
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   return localDb.cityPlaces.filter(p => p.cityId.toLowerCase() === cityId.toLowerCase()).map(p => ({
@@ -520,9 +574,9 @@ async function getFavorites(userId) {
           lon: Number(r.lon),
         },
       }));
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const userFavs = localDb.favorites.filter(f => f.userId === numUserId);
@@ -549,9 +603,9 @@ async function isCityFavorited(userId, cityId) {
     try {
       const res = await pgPool.query('SELECT id FROM public.favorites WHERE user_id = $1 AND city_id = $2', [numUserId, cityId]);
       return res.rows.length > 0;
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
   return localDb.favorites.some(f => f.userId === numUserId && f.cityId.toLowerCase() === cityId.toLowerCase());
 }
@@ -573,9 +627,9 @@ async function addFavorite(userId, cityId, note = '') {
         createdAt: r.created_at,
         city: city || { id: cityId, name: cityId, country: '', lat: 0, lon: 0 },
       };
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const nextId = localDb.favorites.length ? Math.max(...localDb.favorites.map(f => f.id)) + 1 : 1;
@@ -618,9 +672,9 @@ async function updateFavoriteNote(userId, favoriteId, note) {
           city: city || { id: r.city_id, name: r.city_id, country: '', lat: 0, lon: 0 },
         };
       }
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const fav = localDb.favorites.find(f => f.id === numFavId && f.userId === numUserId);
@@ -645,9 +699,9 @@ async function deleteFavorite(userId, favoriteId) {
     try {
       const res = await pgPool.query('DELETE FROM public.favorites WHERE id = $1 AND user_id = $2', [numFavId, numUserId]);
       return res.rowCount > 0;
-    } catch (e) {
-      console.warn('[Database] Postgres query failed, falling back to local storage:', e.message);
-    }
+    }catch (e) {
+  handlePostgresError(e);
+}
   }
 
   const idx = localDb.favorites.findIndex(f => f.id === numFavId && f.userId === numUserId);
